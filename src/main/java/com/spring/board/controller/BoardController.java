@@ -48,11 +48,7 @@ public class BoardController {
 
 		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
-		
-		System.out.println(boardTypesChecked == null);
-		System.out.println(boardTypesChecked == null);
-		System.out.println(boardTypesChecked == null);
-		System.out.println(boardTypesChecked == null);
+
 		
 		
 		
