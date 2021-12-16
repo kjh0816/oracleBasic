@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.board.HomeController;
 import com.spring.board.service.boardService;
 import com.spring.board.vo.BoardVo;
+import com.spring.board.vo.ComVo;
 import com.spring.board.vo.PageVo;
 import com.spring.common.CommonUtil;
 
@@ -48,6 +49,9 @@ public class BoardController {
 
 		
 		List<BoardVo> boardList = new ArrayList<BoardVo>();
+		List<ComVo> comList = new ArrayList<ComVo>();
+		
+		comList = boardService.selectCom();
 
 		
 		
@@ -64,17 +68,11 @@ public class BoardController {
 		params.put("pageNo", pageVo.getPageNo());
 		
 		if(boardTypesChecked == null || boardTypesChecked.isEmpty()) {
-			System.out.println("if 내부 실행됨");
-			System.out.println("if 내부 실행됨");
-			System.out.println("if 내부 실행됨");
-			System.out.println("if 내부 실행됨");
+
 			// null 인 경우, 전체 게시물을 출력하므로, 전체 게시물을 카운트한다.
 			totalCnt = boardService.selectBoardCnt();
 		}else {
-			System.out.println("else 내부 실행됨");
-			System.out.println("else 내부 실행됨");
-			System.out.println("else 내부 실행됨");
-			System.out.println("else 내부 실행됨");
+
 			
 			params.put("boardType", boardTypesChecked);
 			totalCnt = boardService.selectBoardCntByComCode(params);
@@ -87,6 +85,7 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalCnt", totalCnt);
 		model.addAttribute("pageNo", page);
+		model.addAttribute("comList", comList);
 		
 		
 		return "board/boardList";

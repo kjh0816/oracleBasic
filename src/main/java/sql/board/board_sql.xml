@@ -10,6 +10,22 @@
     	<result property="extra__codeName" column="CODE_NAME"/>
     </resultMap>
     
+    <resultMap type="com.spring.board.vo.ComVo" id="comVo">
+	    <result property="codeType" 	column="CODE_TYPE"/>
+	    <result property="codeId" 	column="CODE_ID"/>
+	    <result property="codeName" 	column="CODE_NAME"/>
+    </resultMap>
+    
+    <select id="comList" resultMap="comVo">
+    	SELECT
+    		CODE_TYPE
+    		, CODE_ID
+    		, CODE_NAME
+   		FROM
+   			COM_CODE
+		WHERE CODE_TYPE = 'menu'
+    </select>
+    
     <select id="boardList" parameterType="HashMap" resultMap="boardVo">
         SELECT 
 		  BOARD_TYPE

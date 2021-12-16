@@ -83,14 +83,11 @@ $j(document).ready(function() {
 				<form action="/board/boardList.do" method="POST">
 					<input type="checkbox" name="all" id="all">
 					<span>전체</span>
-					<input type="checkbox" name="boardTypesChecked" value="a01">
-					<span>일반</span>
-					<input type="checkbox" name="boardTypesChecked" value="a02">
-					<span>Q&A</span>
-					<input type="checkbox" name="boardTypesChecked" value="a03">
-					<span>익명</span>
-					<input type="checkbox" name="boardTypesChecked" value="a04">
-					<span>자유</span>
+					
+					<c:forEach var="com" items="${comList}" begin="0" end="3" step="1" varStatus="status">
+					<input type="checkbox" name="boardTypesChecked" value="${com.codeId}">
+					<span>${com.codeName}</span>
+					</c:forEach>
 					<button>조회</button>
 					</form>
 				</td>
