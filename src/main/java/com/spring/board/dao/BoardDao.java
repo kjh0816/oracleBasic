@@ -27,6 +27,8 @@ public interface BoardDao {
 
 	public List<ComVo> selectCom() throws Exception;
 
+	public List<ComVo> selectPhoneNum() throws Exception;
+
 	
 
 }

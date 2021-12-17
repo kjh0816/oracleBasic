@@ -76,5 +76,11 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.selectList("board.comList");
 	}
 	
+	@Override
+	public List<ComVo> selectPhoneNum() throws Exception{
+		return sqlSession.selectList("board.phoneNum");
+	}
+	
+	
 	
 }

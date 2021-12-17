@@ -27,6 +27,8 @@ public interface boardService {
 
 	public List<ComVo> selectCom() throws Exception;
 
+	public List<ComVo> selectPhoneNum() throws Exception;
+
 	
 
 }

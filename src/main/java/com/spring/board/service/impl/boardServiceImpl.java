@@ -32,6 +32,11 @@ public class boardServiceImpl implements boardService{
 	}
 	
 	@Override
+	public List<ComVo> selectPhoneNum() throws Exception {
+		return boardDao.selectPhoneNum();
+	}
+	
+	@Override
 	public int selectBoardCnt() throws Exception {
 		// TODO Auto-generated method stub
 		return boardDao.selectBoardCnt();

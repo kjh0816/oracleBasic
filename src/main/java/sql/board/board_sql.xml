@@ -26,6 +26,16 @@
 		WHERE CODE_TYPE = 'menu'
     </select>
     
+    <select id="phoneNum" resultMap="comVo">
+    	SELECT
+    		CODE_TYPE
+    		, CODE_ID
+    		, CODE_NAME
+   		FROM
+   			COM_CODE
+		WHERE CODE_TYPE = 'phone'
+    </select>
+    
     <select id="boardList" parameterType="HashMap" resultMap="boardVo">
         SELECT 
 		  BOARD_TYPE
