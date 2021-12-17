@@ -20,6 +20,12 @@ public class UserDaoImpl implements UserDao{
 		return sqlSession.insert("user.userInsert", userVo);
 	}
 	
+	@Override
+	public UserVo userByLoginId(String loginId) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("user.userByLoginId", loginId);
+	}
+	
 	
 
 }

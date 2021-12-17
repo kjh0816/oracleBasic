@@ -7,6 +7,8 @@ public interface UserDao {
 	
 	public int userInsert(UserVo userVo) throws Exception;
 
+	public UserVo userByLoginId(String loginId) throws Exception;
+
 	
 
 }

@@ -105,20 +105,20 @@ public class UserController {
 			) throws Exception{
 		
 		
-//		UserVo userVo = userService.selectUserByLoginId(loginId);
-//		
-//		if(userVo == null) {
-//			System.out.println("null인 경우로 들어옴");
-//			System.out.println("null인 경우로 들어옴");
-//			System.out.println("null인 경우로 들어옴");
-//			System.out.println("null인 경우로 들어옴");
-//		}else {
-//			System.out.println("값이 있는 경우로 들어옴");
-//			System.out.println("값이 있는 경우로 들어옴");
-//			System.out.println("값이 있는 경우로 들어옴");
-//			System.out.println("값이 있는 경우로 들어옴");
-//		}
-//		
+		UserVo userVo = userService.selectUserByLoginId(loginId);
+		
+		if(userVo == null) {
+			System.out.println("null인 경우로 들어옴");
+			System.out.println("null인 경우로 들어옴");
+			System.out.println("null인 경우로 들어옴");
+			System.out.println("null인 경우로 들어옴");
+		}else {
+			System.out.println("값이 있는 경우로 들어옴");
+			System.out.println("값이 있는 경우로 들어옴");
+			System.out.println("값이 있는 경우로 들어옴");
+			System.out.println("값이 있는 경우로 들어옴");
+		}
+		
 		
 		
 		HashMap<String, String> result = new HashMap<String, String>();

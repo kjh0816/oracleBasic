@@ -21,5 +21,11 @@ public class userServiceImpl implements userService{
 		return userDao.userInsert(userVo);
 	}
 	
+	@Override
+	public UserVo selectUserByLoginId(String loginId) throws Exception {
+		// TODO Auto-generated method stub
+		return userDao.userByLoginId(loginId);
+	}
+	
 
 }
