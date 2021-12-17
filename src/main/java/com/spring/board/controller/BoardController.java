@@ -168,11 +168,6 @@ public class BoardController {
 			) throws Exception{
 		
 		
-		
-		
-				
-		
-		
 		int isBoardModified = boardService.boardModify(boardVo);
 		
 		

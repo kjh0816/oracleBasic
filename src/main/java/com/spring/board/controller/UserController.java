@@ -107,33 +107,32 @@ public class UserController {
 		
 		UserVo userVo = userService.selectUserByLoginId(loginId);
 		
-		if(userVo == null) {
-			System.out.println("null인 경우로 들어옴");
-			System.out.println("null인 경우로 들어옴");
-			System.out.println("null인 경우로 들어옴");
-			System.out.println("null인 경우로 들어옴");
-		}else {
-			System.out.println("값이 있는 경우로 들어옴");
-			System.out.println("값이 있는 경우로 들어옴");
-			System.out.println("값이 있는 경우로 들어옴");
-			System.out.println("값이 있는 경우로 들어옴");
-		}
-		
 		
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
 		
-//		int resultCnt = userService.userInsert(userVo);
-		int resultCnt = 1;
+		if(userVo != null) {
+			result.put("msg", "0");
+//			result.put("success", "Can use");
+		}
+		else {
+			result.put("msg", "1");
+//			result.put("success", "Can't use");
+		}
 		
-		
-		result.put("success", (resultCnt > 0)?"Y":"N");
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
 		
 		System.out.println("callbackMsg::"+callbackMsg);
 		
 		return callbackMsg;
+	}
+	
+	@RequestMapping(value = "/user/login.do", method = RequestMethod.GET)
+	public String login(
+			) throws Exception{
+		
+		return "user/login";
 	}
 
 }

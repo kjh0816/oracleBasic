@@ -12,9 +12,12 @@
 
 	});
 	
-	$j("#loginIdCheck").on("click", function() {
+	var isUsableLoginId = false;
+	
+	function idCheck() {
 		
 		var loginId = $j('#loginId').val();
+		
 		
 		if(loginId.length == 0){
 			alert('아이디를 입력해주세요.');
@@ -26,13 +29,23 @@
 			url : "/user/loginIdCheck.do",
 			dataType : "json",
 			type : "POST",
-			data : loginId:loginId
+			data : {
+				loginId:loginId
+				},
 			success : function(data, textStatus, jqXHR) {
-				
+				if(data.msg == '0'){
+					alert('사용할 수 없는 아이디입니다.');
+				}else{
+					alert('사용할 수 있는 아이디입니다.');
+					isUsableLoginId = true;
+					
+				}
 			}
 		});
 		
-	});
+		
+		
+	}
 
 	function join(form) {
 		
@@ -54,6 +67,12 @@
 			alert('아이디를 입력해주세요.');
 			return false;
 		}
+		
+		if(!isUsableLoginId){
+			alert('아이디 중복확인 해주세요.');
+			return false;
+		}
+		
 		if(loginPw.length == 0){
 			alert('비밀번호를 입력해주세요.');
 			return false;
@@ -111,7 +130,10 @@
 	        company:company
 	        },
 	        success: function(data, textStatus, jqXHR){
-	        	alert('회원가입이 완료되었습니다.');   
+	        	
+	        	alert('회원가입이 완료되었습니다.');
+	        	
+	        	window.location.href = "/user/login.do";
 	        }
 
 	    });
@@ -147,7 +169,7 @@ tbody tr:nth-child(5)>td>select {
 							<td width="80" align="left"><input type="text"
 								name="loginId" id="loginId"></td>
 							<td>
-								<button id="loginIdCheck" type="button">중복 확인</button>
+								<button id="loginIdCheck" type="button" onclick="idCheck();">중복 확인</button>
 							</td>
 						</tr>
 						<tr>
