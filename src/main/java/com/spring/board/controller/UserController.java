@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.spring.board.HomeController;
 import com.spring.board.service.userService;
 import com.spring.board.vo.ComVo;
+import com.spring.board.vo.UserVo;
 import com.spring.board.service.boardService;
 
 @Controller
@@ -29,7 +30,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/user/join.do", method = RequestMethod.GET)
-	public String login(
+	public String join(
 			Model model
 			) throws Exception{
 		
@@ -38,13 +39,22 @@ public class UserController {
 		
 		phoneNumList = boardService.selectPhoneNum();
 		
-		System.out.println(phoneNumList);
-		System.out.println(phoneNumList);
-		System.out.println(phoneNumList);
-		System.out.println(phoneNumList);
+		model.addAttribute("phoneNumList", phoneNumList);
 		
 		
 		return "user/join";
+		
+	}
+	
+	@RequestMapping(value = "/user/actionJoin.do", method = RequestMethod.POST)
+	public String actionJoin(
+			Model model,
+			UserVo userVo
+			) throws Exception {
+		
+		
+		
+		return "";
 		
 	}
 

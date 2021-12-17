@@ -11,98 +11,180 @@
 	$j(document).ready(function() {
 
 	});
+
+	function join(form) {
+		
+		var loginId = form.loginId.value;
+		var loginPw = form.loginPw.value;
+		var loginPwConfirm = form.loginPwConfirm.value;
+		var name = form.name.value;
+		
+		var cellphoneNo_1 = form.cellphoneNo_1.value;
+		var cellphoneNo_2 = form.cellphoneNo_2.value;
+		var cellphoneNo_3 = form.cellphoneNo_3.value;
+		
+		var postNo = form.postNo.value;
+		var address = form.address.value;
+		var company = form.company.value;
+		
+		
+		if(loginId.length == 0){
+			alert('아이디를 입력해주세요.');
+			return false;
+		}
+		if(loginPw.length == 0){
+			alert('비밀번호를 입력해주세요.');
+			return false;
+		}
+		if(loginPwConfirm.length == 0){
+			alert('비밀번호 확인을 입력해주세요.');
+			return false;
+		}
+		if(name.length == 0){
+			alert('성함을 입력해주세요.');
+			return false;
+		}
+		
+		if(loginPw.lenth <= 6 || loginPw.lenth >= 11){
+			alert('6자~12자의 비밀번호를 입력해주세요.');
+			return false;
+		}
+		
+		
+		if(loginPw != loginPwConfirm){
+			alert('입력하신 두 비밀번호가 일치하지 않습니다.');
+			return false;
+		}
+		
+		
+		var cellphoneNoRegex = /^[0-9]{4}$/;
+		
+		if(!cellphoneNoRegex.test(cellphoneNo_2) || !cellphoneNoRegex.test(cellphoneNo_3)){
+			alert('핸드폰 번호가 올바른지 확인해주세요.');
+			return false;
+		}
+		
+		var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
+		
+		if(!postNoRegex.test(postNo)){
+			alert('우편번호가 올바른지 확인해주세요.');
+			return false;
+		}
+		
+		var cellphoneNo = cellphoneNo_1 + cellphoneNo_2 + cellphoneNo_3;
+		
+		
+		$.ajax({
+	        type: 'POST',
+	        url: '/user/joinAction.do',
+	        dataType: 'json',
+	        data: {
+	        loginId:loginId,
+	        loginPw:loginPw,
+	        name:name,
+	        cellphoneNo:cellphoneNo,
+	        postNo:postNo,
+	        address:address,
+	        company:company
+	        },
+	        success: function(result){
+	        	alert('컨트롤러 다녀옴');   
+	        }
+
+	    });
+		
+
+	}
 </script>
 <style>
-	tbody tr:nth-child(5) > td > input {
-		width: 30px;
-	}
+tbody tr:nth-child(5)>td>input {
+	width: 30px;
+}
+
+tbody tr:nth-child(5)>td>select {
+	width: 50px;
+}
+
+.submit {
 	
-	tbody tr:nth-child(5) > td > select {
-		width: 50px;
-	}
+}
 </style>
 <body>
-	<table align="center">
-		<tr>
-			<td align="left"><a href="/board/boardList.do">List</a></td>
-		</tr>
-		<tr>
-			<td>
-				<table id="joinTable" border="1">
-					<form>
-					<tr>
-						<td width="80" align="center">id</td>
-						<td width="80" align="left">
-							<input type="text" name="loginId">
-						</td>
-						<td>
-							<button type="button">중복 확인</button>
-						</td>
-					</tr>
-					<tr>
-						<td width="80" align="center">pw</td>
-						<td width="100" align="left">
-							<input type="text" name="loginId">
-						</td>
-						<td width="120" align="right"></td>
-					</tr>
-					<tr>
-						<td width="80" align="center">pw check</td>
-						<td width="100" align="left">
-							<input type="text" name="loginId">
-						</td>
-						<td width="120" align="right"></td>
-					</tr>
-					<tr>
-						<td width="80" align="center">name</td>
-						<td width="100" align="left">
-							<input type="text" name="loginId">
-						</td>
-						<td width="120" align="right"></td>
-					</tr>
-					<tr>
-						<td width="80" align="center">phone</td>
-						<td width="100">
-							<select>
-								<option>예시1)</option>
-								<option>예시2)</option>
-							</select>
-							-&nbsp;<input type="text" name="" width="30">
-							-&nbsp;<input type="text" name="" width="30">
-						</td>
-						<td>
-						</td>
-					</tr>
-					<tr>
-						<td width="80" align="center">postNo</td>
-						<td width="100" align="left">
-							<input type="text" name="loginId">
-						</td>
-						<td width="120" align="right"></td>
-					</tr>
-					<tr>
-						<td width="80" align="center">address</td>
-						<td width="100" align="left">
-							<input type="text" name="loginId">
-						</td>
-						<td width="120" align="right"></td>
-					</tr>
-					<tr>
-						<td width="80" align="center">company</td>
-						<td width="100" align="left">
-							<input type="text" name="loginId">
-						</td>
-						<td width="120" align="right"></td>
-					</tr>
-					</form>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td align="right"><a href="/board/doLogin.do">join</a></td>
-		</tr>
+	<form method="POST" onsubmit="join(this); return false;">
+		<table align="center">
+			<tr>
+				<td align="left"><a href="/board/boardList.do">List</a></td>
+			</tr>
+			<tr>
+				<td>
+					<table id="joinTable" border="1">
+
+						<tr>
+							<td width="80" align="center">id</td>
+							<td width="80" align="left"><input type="text"
+								name="loginId"></td>
+							<td>
+								<button type="button">중복 확인</button>
+							</td>
+						</tr>
+						<tr>
+							<td width="80" align="center">pw</td>
+							<td width="100" align="left"><input type="text"
+								name="loginPw"></td>
+							<td width="120" align="right"></td>
+						</tr>
+						<tr>
+							<td width="80" align="center">pw check</td>
+							<td width="100" align="left"><input type="text"
+								name="loginPwConfirm"></td>
+							<td width="120" align="right"></td>
+						</tr>
+						<tr>
+							<td width="80" align="center">name</td>
+							<td width="100" align="left"><input type="text" name="name">
+							</td>
+							<td width="120" align="right"></td>
+						</tr>
+						<tr>
+							<td width="80" align="center">phone</td>
+							<td width="100"><select name="cellphoneNo_1">
+									<c:forEach var="p" items="${phoneNumList}" begin="0" end="3"
+										step="1" varStatus="status">
+										<option value="${p.codeName}">${p.codeName}</option>
+									</c:forEach>
+							</select> -&nbsp;<input type="text" name="cellphoneNo_2" width="30">
+								-&nbsp;<input type="text" name="cellphoneNo_3" width="30">
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td width="80" align="center">postNo</td>
+							<td width="100" align="left"><input type="text"
+								name="postNo"></td>
+							<td width="120" align="right"></td>
+						</tr>
+						<tr>
+							<td width="80" align="center">address</td>
+							<td width="100" align="left"><input type="text"
+								name="address"></td>
+							<td width="120" align="right"></td>
+						</tr>
+						<tr>
+							<td width="80" align="center">company</td>
+							<td width="100" align="left"><input type="text"
+								name="company"></td>
+							<td width="120" align="right"></td>
+						</tr>
+
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td align="right"><input class="submit" type="submit" value="join"/></td>
+			</tr>
 
 
-	</table>
+		</table>
+	</form>
 </body>
 </html>

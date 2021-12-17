@@ -167,17 +167,6 @@ public class BoardController {
 			, BoardVo boardVo
 			) throws Exception{
 		
-		System.out.println("Controller 실행됨");
-		System.out.println("Controller 실행됨");
-		System.out.println("Controller 실행됨");
-		System.out.println("Controller 실행됨");
-		System.out.println("Controller 실행됨");
-		System.out.println("Controller 실행됨");
-		
-		System.out.println("제목: " + boardVo.getBoardComment());
-		System.out.println("내용: " + boardVo.getBoardTitle());
-		System.out.println("게시판 번호: " + boardVo.getBoardType());
-		System.out.println("게시물 번호: " + boardVo.getBoardNum());
 		
 		
 		
