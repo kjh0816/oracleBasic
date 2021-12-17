@@ -1,6 +1,7 @@
 package com.spring.board.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,11 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.board.HomeController;
 import com.spring.board.service.userService;
 import com.spring.board.vo.ComVo;
 import com.spring.board.vo.UserVo;
+import com.spring.common.CommonUtil;
 import com.spring.board.service.boardService;
 
 @Controller
@@ -29,7 +33,7 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	
-	@RequestMapping(value = "/user/join.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/join.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String join(
 			Model model
 			) throws Exception{
@@ -47,15 +51,89 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/actionJoin.do", method = RequestMethod.POST)
+	@ResponseBody
 	public String actionJoin(
-			Model model,
-			UserVo userVo
+			@RequestParam String loginId,
+			@RequestParam String loginPw,
+			@RequestParam String name,
+			@RequestParam String cellphoneNo_1,
+			@RequestParam String cellphoneNo_2,
+			@RequestParam String cellphoneNo_3,
+			@RequestParam(defaultValue="") String postNo,
+			@RequestParam(defaultValue="") String address,
+			@RequestParam(defaultValue="") String company
+			
 			) throws Exception {
 		
 		
+		UserVo userVo = new UserVo();
 		
-		return "";
+		userVo.setLoginId(loginId);
+		userVo.setLoginPw(loginPw);
+		userVo.setName(name);
+		userVo.setCellphoneNo_1(cellphoneNo_1);
+		userVo.setCellphoneNo_2(cellphoneNo_2);
+		userVo.setCellphoneNo_3(cellphoneNo_3);
+		userVo.setPostNo(postNo);
+		userVo.setAddress(address);
+		userVo.setCompany(company);
 		
+		
+		
+		
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		int resultCnt = userService.userInsert(userVo);
+		
+		
+		result.put("success", (resultCnt > 0)?"Y":"N");
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("callbackMsg::"+callbackMsg);
+		
+		return callbackMsg;
+		
+		
+	}
+	
+	@RequestMapping(value = "/user/loginIdCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String loginIdCheck(
+			@RequestParam String loginId
+			) throws Exception{
+		
+		
+//		UserVo userVo = userService.selectUserByLoginId(loginId);
+//		
+//		if(userVo == null) {
+//			System.out.println("null인 경우로 들어옴");
+//			System.out.println("null인 경우로 들어옴");
+//			System.out.println("null인 경우로 들어옴");
+//			System.out.println("null인 경우로 들어옴");
+//		}else {
+//			System.out.println("값이 있는 경우로 들어옴");
+//			System.out.println("값이 있는 경우로 들어옴");
+//			System.out.println("값이 있는 경우로 들어옴");
+//			System.out.println("값이 있는 경우로 들어옴");
+//		}
+//		
+		
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+//		int resultCnt = userService.userInsert(userVo);
+		int resultCnt = 1;
+		
+		
+		result.put("success", (resultCnt > 0)?"Y":"N");
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("callbackMsg::"+callbackMsg);
+		
+		return callbackMsg;
 	}
 
 }

@@ -11,6 +11,28 @@
 	$j(document).ready(function() {
 
 	});
+	
+	$j("#loginIdCheck").on("click", function() {
+		
+		var loginId = $j('#loginId').val();
+		
+		if(loginId.length == 0){
+			alert('아이디를 입력해주세요.');
+			return false;
+		}
+		
+		$j.ajax({
+			
+			url : "/user/loginIdCheck.do",
+			dataType : "json",
+			type : "POST",
+			data : loginId:loginId
+			success : function(data, textStatus, jqXHR) {
+				
+			}
+		});
+		
+	});
 
 	function join(form) {
 		
@@ -71,24 +93,25 @@
 			return false;
 		}
 		
-		var cellphoneNo = cellphoneNo_1 + cellphoneNo_2 + cellphoneNo_3;
 		
-		
-		$.ajax({
+
+		$j.ajax({
 	        type: 'POST',
-	        url: '/user/joinAction.do',
+	        url: '/user/actionJoin.do',
 	        dataType: 'json',
 	        data: {
 	        loginId:loginId,
 	        loginPw:loginPw,
 	        name:name,
-	        cellphoneNo:cellphoneNo,
+	        cellphoneNo_1:cellphoneNo_1,
+	        cellphoneNo_2:cellphoneNo_2,
+	        cellphoneNo_3:cellphoneNo_3,
 	        postNo:postNo,
 	        address:address,
 	        company:company
 	        },
-	        success: function(result){
-	        	alert('컨트롤러 다녀옴');   
+	        success: function(data, textStatus, jqXHR){
+	        	alert('회원가입이 완료되었습니다.');   
 	        }
 
 	    });
@@ -122,20 +145,20 @@ tbody tr:nth-child(5)>td>select {
 						<tr>
 							<td width="80" align="center">id</td>
 							<td width="80" align="left"><input type="text"
-								name="loginId"></td>
+								name="loginId" id="loginId"></td>
 							<td>
-								<button type="button">중복 확인</button>
+								<button id="loginIdCheck" type="button">중복 확인</button>
 							</td>
 						</tr>
 						<tr>
 							<td width="80" align="center">pw</td>
-							<td width="100" align="left"><input type="text"
+							<td width="100" align="left"><input type="password"
 								name="loginPw"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">pw check</td>
-							<td width="100" align="left"><input type="text"
+							<td width="100" align="left"><input type="password"
 								name="loginPwConfirm"></td>
 							<td width="120" align="right"></td>
 						</tr>

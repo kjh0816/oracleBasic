@@ -5,7 +5,9 @@ public class UserVo {
 	private String loginId;
 	private String loginPw;
 	private String name;
-	private String cellphoneNo;
+	private String cellphoneNo_1;
+	private String cellphoneNo_2;
+	private String cellphoneNo_3;
 	private String postNo;
 	private String address;
 	private String company;
@@ -28,11 +30,23 @@ public class UserVo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCellphoneNo() {
-		return cellphoneNo;
+	public String getCellphoneNo_1() {
+		return cellphoneNo_1;
 	}
-	public void setCellphoneNo(String cellphoneNo) {
-		this.cellphoneNo = cellphoneNo;
+	public void setCellphoneNo_1(String cellphoneNo_1) {
+		this.cellphoneNo_1 = cellphoneNo_1;
+	}
+	public String getCellphoneNo_2() {
+		return cellphoneNo_2;
+	}
+	public void setCellphoneNo_2(String cellphoneNo_2) {
+		this.cellphoneNo_2 = cellphoneNo_2;
+	}
+	public String getCellphoneNo_3() {
+		return cellphoneNo_3;
+	}
+	public void setCellphoneNo_3(String cellphoneNo_3) {
+		this.cellphoneNo_3 = cellphoneNo_3;
 	}
 	public String getPostNo() {
 		return postNo;
@@ -52,6 +66,7 @@ public class UserVo {
 	public void setCompany(String company) {
 		this.company = company;
 	}
+	
 	
 
 }

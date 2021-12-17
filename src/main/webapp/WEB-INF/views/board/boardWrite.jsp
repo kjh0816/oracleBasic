@@ -13,6 +13,8 @@
 		$j("#submit").on("click", function() {
 			var $frm = $j('.boardWrite :input');
 			var param = $frm.serialize();
+			
+			
 
 			$j.ajax({
 				url : "/board/boardWriteAction.do",
