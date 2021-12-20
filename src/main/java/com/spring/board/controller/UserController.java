@@ -154,7 +154,9 @@ public class UserController {
 		
 		loginSession.invalidate();
 		
-		return "<script>alert('logout done'); location.href = '/board/boardList.do';</script>";
+		CommonUtil commonUtil = new CommonUtil();
+		
+		return CommonUtil.replaceJs("logout done", "/board/boardList.do");
 	}
 	
 	
@@ -198,6 +200,13 @@ public class UserController {
 			loginSession.setAttribute("loginedMember", userVo);
 			loginSession.setAttribute("name", userVo.getName());
 			
+			System.out.println(userVo);
+			System.out.println(userVo);
+			System.out.println(userVo);
+			System.out.println(userVo);
+			System.out.println(userVo);
+			
+			
 			
 			UserVo loginedMember = (UserVo) loginSession.getAttribute("loginedMember");
 			
@@ -213,6 +222,21 @@ public class UserController {
 		return callbackMsg;
 		
 		
+		
+	}
+	
+	@RequestMapping(value = "/alert.do", method = RequestMethod.GET)
+	public String alertPage(
+			@RequestParam(defaultValue="redirected") String msg,
+			@RequestParam(defaultValue="/board/boardList.do") String url,
+			Model model
+			) {
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		
+		return "/alert";
 		
 	}
 

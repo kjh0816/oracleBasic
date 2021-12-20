@@ -54,4 +54,14 @@ public class CommonUtil {
 		}
         return rtnStr;
 	}
+	
+	public static String replaceJs(String msg, String url) {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("<script>");
+		sb.append("alert('" + msg + "');");
+		sb.append("window.location.href='" + url + "'");
+		sb.append("</script>");
+		return sb.toString();
+	}
 }

@@ -27,12 +27,22 @@
 	</beans:bean>
 		
 	
-	<beans:bean id="Interceptor" class="com.spring.board.interceptor.Interceptor">
+	<beans:bean id="NeedLoginInterceptor" class="com.spring.board.interceptor.NeedLoginInterceptor">
 	</beans:bean>
 	 <interceptors>
         <interceptor>
             <mapping path="/**"/>
-            <beans:ref bean="Interceptor"/>
+            <beans:ref bean="NeedLoginInterceptor"/>
+        </interceptor>
+    </interceptors>
+    
+    
+    <beans:bean id="NeedLogoutInterceptor" class="com.spring.board.interceptor.NeedLogoutInterceptor">
+	</beans:bean>
+	 <interceptors>
+        <interceptor>
+            <mapping path="/user/login.do"/>
+            <beans:ref bean="NeedLogoutInterceptor"/>
         </interceptor>
     </interceptors>
     
