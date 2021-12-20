@@ -19,18 +19,11 @@ public class NeedLogoutInterceptor extends HandlerInterceptorAdapter{
 		
 		CommonUtil commonUtil = new CommonUtil();
 		
-		System.out.println(obj);
-		System.out.println(obj);
-		System.out.println(obj);
-		System.out.println(obj);
-		System.out.println(obj);
-		
+
 		
 		if(obj != null) {
 			
-						
 			resp.sendRedirect("/alert.do?msg=already logged in&url=/board/boardList.do");
-			
 			
 			return false;
 		}
