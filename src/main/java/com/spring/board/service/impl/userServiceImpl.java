@@ -1,5 +1,7 @@
 package com.spring.board.service.impl;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,12 @@ public class userServiceImpl implements userService{
 	public UserVo selectUserByLoginId(String loginId) throws Exception {
 		// TODO Auto-generated method stub
 		return userDao.userByLoginId(loginId);
+	}
+	
+	@Override
+	public UserVo selectUserByLoginIdAndLoginPw(HashMap<String, String> params) throws Exception {
+		// TODO Auto-generated method stub
+		return userDao.userByLoginIdAndLoginPw(params);
 	}
 	
 

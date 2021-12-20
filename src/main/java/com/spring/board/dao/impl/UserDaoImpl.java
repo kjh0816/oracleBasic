@@ -1,5 +1,7 @@
 package com.spring.board.dao.impl;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,12 @@ public class UserDaoImpl implements UserDao{
 	public UserVo userByLoginId(String loginId) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("user.userByLoginId", loginId);
+	}
+	
+	@Override
+	public UserVo userByLoginIdAndLoginPw(HashMap<String, String> params) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("user.userByLoginIdAndLoginPw", params);
 	}
 	
 	

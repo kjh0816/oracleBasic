@@ -26,6 +26,15 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 		
-	<context:component-scan base-package="com.spring.board.controller" />
 	
+	<beans:bean id="Interceptor" class="com.spring.board.interceptor.Interceptor">
+	</beans:bean>
+	 <interceptors>
+        <interceptor>
+            <mapping path="/**"/>
+            <beans:ref bean="Interceptor"/>
+        </interceptor>
+    </interceptors>
+    
+	<context:component-scan base-package="com.spring.board.controller" />
 </beans:beans>

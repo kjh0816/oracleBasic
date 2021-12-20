@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,9 +133,74 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/login.do", method = RequestMethod.GET)
 	public String login(
+			HttpServletRequest req
 			) throws Exception{
 		
+		HttpSession loginSession = req.getSession();
+		
+		UserVo userVo = (UserVo) loginSession.getAttribute("loginedMember");
+		
+		if(userVo != null) {
+			return "<script>alert('이미 로그인된 상태입니다.'); location.href='/board/boardList.do'</script>";
+		}
+		
 		return "user/login";
+	}
+	
+	
+	@RequestMapping(value = "/user/actionLogin.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String doLogin(
+			 HttpServletRequest req,
+			@RequestParam(defaultValue="") String loginId,
+			@RequestParam(defaultValue="") String loginPw
+			) throws Exception {
+		
+		
+		
+		
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		
+		
+		
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		
+		params.put("loginId", loginId);
+		params.put("loginPw", loginPw);
+		
+		UserVo userVo = userService.selectUserByLoginIdAndLoginPw(params);
+		
+		if(userVo == null) {
+
+			result.put("msg", "0");
+		}
+		else {
+
+			result.put("msg", "1");
+			
+			HttpSession loginSession = req.getSession();
+			
+			loginSession.setAttribute("loginedMember", userVo);
+			
+			UserVo loginedMember = (UserVo) loginSession.getAttribute("loginedMember");
+			
+			
+			
+			
+		}
+		
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		System.out.println("callbackMsg::"+callbackMsg);
+		
+		return callbackMsg;
+		
+		
+		
 	}
 
 }

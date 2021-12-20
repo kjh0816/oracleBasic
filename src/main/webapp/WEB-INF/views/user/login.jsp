@@ -10,33 +10,80 @@
 <script type="text/javascript">
 	$j(document).ready(function() {
 	});
+	
+	function doLogin(form){
+		
+		var loginId = form.loginId.value;
+		var loginPw = form.loginPw.value;
+		
+		if(loginId.length == 0){
+			alert('아이디를 입력해주세요.');
+			return false;
+		}
+		
+		if(loginPw.length == 0){
+			alert('비밀번호를 입력해주세요.');
+			return false;
+		}
+		
+		if(loginPw.lenth <= 6 || loginPw.lenth >= 11){
+			alert('6자~12자의 비밀번호를 입력해주세요.');
+			return false;
+		}
+		
+		
+		$j.ajax({
+	        type: 'POST',
+	        url: '/user/actionLogin.do',
+	        dataType: 'json',
+	        data: {
+	        loginId:loginId,
+	        loginPw:loginPw
+	        },
+	        success: function(data, textStatus, jqXHR){
+	        	if(data.msg == '0'){
+	        		alert("일치하는 회원이 존재하지 않습니다.");
+	        	}
+	        	else{
+	        		alert("환영합니다.");	
+	        		window.location.href = "/board/boardList.do";
+	        	}
+	        }
+		
+		
+		
+		
+		});
+	}	
 </script>
 <style>
-	tr > td > input {
-		width: 100px;
-	}
+tr>td>input {
+	width: 100px;
+}
+
+span {
+	cursor: pointer;
+}
 </style>
 <body>
-	<form class="login">
+	<form class="login" onsubmit="doLogin(this); return false;">
 		<table align="center">
 			<tr>
 				<td>
 					<table border="1">
 						<tr>
 							<td width="120" align="center">id</td>
-							<td width="200"><input name="boardTitle" type="text"
-								size="50" value="${board.boardTitle}"></td>
+							<td width="200"><input name="loginId" type="text" size="50"></td>
 						</tr>
 						<tr>
 							<td width="120" align="center">pw</td>
-							<td width="200"><input name="boardTitle" type="text"
-								size="50" value="${board.boardTitle}"></td>
+							<td width="200"><input name="loginPw" type="password" size="50"></td>
 						</tr>
 					</table>
 				</td>
 			</tr>
 			<tr>
-				<td align="right"><a href="/user/actionLogin.do">login</a></td>
+				<td align="right"><button>login</button></td>
 			</tr>
 		</table>
 	</form>
