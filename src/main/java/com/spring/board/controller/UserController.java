@@ -141,10 +141,20 @@ public class UserController {
 		UserVo userVo = (UserVo) loginSession.getAttribute("loginedMember");
 		
 		if(userVo != null) {
-			return "<script>alert('이미 로그인된 상태입니다.'); location.href='/board/boardList.do'</script>";
+			return "board/boardList.do";
 		}
 		
 		return "user/login";
+	}
+	
+	@RequestMapping(value = "/user/doLogout.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String doLogout(HttpServletRequest req) throws Exception {
+		HttpSession loginSession = req.getSession();
+		
+		loginSession.invalidate();
+		
+		return "<script>alert('logout done'); location.href = '/board/boardList.do';</script>";
 	}
 	
 	
@@ -184,7 +194,10 @@ public class UserController {
 			
 			HttpSession loginSession = req.getSession();
 			
+			loginSession.setAttribute("loginedMemberJsonStr", CommonUtil.toJson(userVo));
 			loginSession.setAttribute("loginedMember", userVo);
+			loginSession.setAttribute("name", userVo.getName());
+			
 			
 			UserVo loginedMember = (UserVo) loginSession.getAttribute("loginedMember");
 			

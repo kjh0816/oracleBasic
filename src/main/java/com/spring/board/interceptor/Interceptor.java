@@ -15,18 +15,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
 		
 		Object obj = session.getAttribute("loginedMember");
 		
-		System.out.println("인터셉터 실행됨");
-		System.out.println("인터셉터 실행됨");
-		System.out.println("인터셉터 실행됨");
-		System.out.println("인터셉터 실행됨");
-		System.out.println("인터셉터 실행됨");
-		
-		
-		System.out.println(obj);
-		System.out.println(obj);
-		System.out.println(obj);
-		System.out.println(obj);
-		System.out.println(obj);
 		
 		
 		return true;

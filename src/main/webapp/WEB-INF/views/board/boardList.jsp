@@ -46,13 +46,32 @@ $j(document).ready(function() {
 });
 </script>
 <body>
+	
+	
 
 	<table align="center">
+		
+		<% 
+		String userName = (String)session.getAttribute("name");
+		if(userName != null){ %>
 		<tr>
-			<td align="left"><a href="#">login</a> <a href="/user/join.do">join</a></td>
+			<td align="left"><a href="/user/doLogout.do">logout</a></td>
+		</tr>
+		
+		<%
+		}else{ %>
+		<tr>
+			<td align="left"><a href="/user/login.do">login</a> <a href="/user/join.do">join</a></td>
 		</tr>
 		<tr>
+		<%	
+		}
+		%>
+		
 			<td align="right">total : ${totalCnt}</td>
+		</tr>
+		<tr>
+			<td align="left"><%= userName != null ? userName:""%></td>
 		</tr>
 		<tr>
 			<td>
