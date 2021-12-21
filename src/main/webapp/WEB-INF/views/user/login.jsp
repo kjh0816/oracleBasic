@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>login</title>
 </head>
 <script type="text/javascript">
@@ -17,17 +17,17 @@
 		var loginPw = form.loginPw.value;
 		
 		if(loginId.length == 0){
-			alert('¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
 			return false;
 		}
 		
 		if(loginPw.length == 0){
-			alert('ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
 			return false;
 		}
 		
 		if(loginPw.lenth <= 6 || loginPw.lenth >= 11){
-			alert('6ÀÚ~12ÀÚÀÇ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('6ì~12ìì˜ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
 			return false;
 		}
 		
@@ -42,10 +42,10 @@
 	        },
 	        success: function(data, textStatus, jqXHR){
 	        	if(data.msg == '0'){
-	        		alert("ÀÏÄ¡ÇÏ´Â È¸¿øÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+	        		alert("ì¼ì¹˜í•˜ëŠ” íšŒì›ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	        	}
 	        	else{
-	        		alert("È¯¿µÇÕ´Ï´Ù.");	
+	        		alert("í™˜ì˜í•©ë‹ˆë‹¤.");	
 	        		window.location.href = "/board/boardList.do";
 	        	}
 	        }

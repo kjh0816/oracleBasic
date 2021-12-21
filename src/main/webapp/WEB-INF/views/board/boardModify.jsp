@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>boardWrite</title>
 </head>
 <script type="text/javascript">
@@ -23,14 +23,14 @@
 			    data : param,
 			    success: function(data, textStatus, jqXHR)
 			    {
-					alert("¼öÁ¤ ¿Ï·á");
+					alert("ìˆ˜ì • ì™„ë£Œ");
 					
 					
 					location.href = "/board/" + data.boardType + "/"+ data.boardNum+"/boardView.do";
 			    },
 			    error: function (jqXHR, textStatus, errorThrown)
 			    {
-			    	alert("½ÇÆÐ");
+			    	alert("ì‹¤íŒ¨");
 			    }
 			});
 		});
@@ -43,7 +43,7 @@
 	<table align="center">
 		<tr>
 			<td align="right">
-			<input id="submit" type="button" value="¼öÁ¤ ¿Ï·á">
+			<input id="submit" type="button" value="ìˆ˜ì • ì™„ë£Œ">
 			</td>
 		</tr>
 		<tr>

@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>list</title>
 </head>
 <script type="text/javascript">
@@ -94,20 +94,20 @@ $j(document).ready(function() {
 			</td>
 		</tr>
 		<tr>
-			<td align="right"><a href="/board/boardWrite.do">±Û¾²±â</a></td>
+			<td align="right"><a href="/board/boardWrite.do">ê¸€ì“°ê¸°</a></td>
 		</tr>
 		
 			<tr align="left">
 				<td>
 				<form action="/board/boardList.do" method="POST">
 					<input type="checkbox" name="all" id="all">
-					<span>ÀüÃ¼</span>
+					<span>ì „ì²´</span>
 					
 					<c:forEach var="com" items="${comList}" begin="0" end="3" step="1" varStatus="status">
 					<input type="checkbox" name="boardTypesChecked" value="${com.codeId}">
 					<span>${com.codeName}</span>
 					</c:forEach>
-					<button>Á¶È¸</button>
+					<button>ì¡°íšŒ</button>
 					</form>
 				</td>
 			</tr>

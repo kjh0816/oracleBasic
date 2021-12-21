@@ -1,14 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>join</title>
 </head>
 <script type="text/javascript">
 	$j(document).ready(function() {
+		$j('#postNo').blur(function(){
+			
+			var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
+			var postNoRegex2 = /[0-9]{6}$/;
+			
+			alert(postNoRegex2.test(postNo));
+			
+			if(postNo.lenth != 0){
+				if(!postNoRegex.test(postNo) && !postNoRegex2.test(postNo)){
+					alert('ìš°í¸ë²ˆí˜¸ëŠ” xxx-xxx í˜•ì‹ìœ¼ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+					return false;
+				}	
+			}
+			
+			
+			
+			if(postNoRegex2.test(postNo)){
+				alert(postNo.substr(0, 3));
+			}
+			
+			$j('#postNo').val('yee');
+		});
 
 	});
 	
@@ -20,8 +42,17 @@
 		
 		
 		if(loginId.length == 0){
-			alert('¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+			document.getElementById('loginId').focus();
 			return false;
+		}
+		
+		
+		var loginIdRegex = /^[a-z0-9+]$/;
+		if(!loginIdRegex.test(loginId)){
+			alert('ì•„ì´ë””ëŠ” ì˜ì†Œë¬¸ì, ìˆ«ìë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
+			document.getElementById('loginId').focus();
+			return false;	
 		}
 		
 		$j.ajax({
@@ -34,9 +65,10 @@
 				},
 			success : function(data, textStatus, jqXHR) {
 				if(data.msg == '0'){
-					alert('»ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌµğÀÔ´Ï´Ù.');
+					alert('ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.');
+					document.getElementById('loginId').focus();
 				}else{
-					alert('»ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.');
+					alert('ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.');
 					isUsableLoginId = true;
 					
 				}
@@ -64,36 +96,56 @@
 		
 		
 		if(loginId.length == 0){
-			alert('¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+			document.getElementById('loginId').focus();
 			return false;
 		}
 		
+		var loginIdRegex = /^[a-z0-9+]$/;
+		if(!loginIdRegex.test(loginId)){
+			alert('ì•„ì´ë””ëŠ” ì˜ì†Œë¬¸ì, ìˆ«ìë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
+			document.getElementById('loginId').focus();
+			return false;	
+		}
+		
 		if(!isUsableLoginId){
-			alert('¾ÆÀÌµğ Áßº¹È®ÀÎ ÇØÁÖ¼¼¿ä.');
+			alert('ì•„ì´ë”” ì¤‘ë³µí™•ì¸ í•´ì£¼ì„¸ìš”.');
 			return false;
 		}
 		
 		if(loginPw.length == 0){
-			alert('ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+			document.getElementById('loginPw').focus();
 			return false;
 		}
 		if(loginPwConfirm.length == 0){
-			alert('ºñ¹Ğ¹øÈ£ È®ÀÎÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+			document.getElementById('loginPwConfirm').focus();
 			return false;
 		}
 		if(name.length == 0){
-			alert('¼ºÇÔÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('ì„±í•¨ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+			document.getElementById('name').focus();
+			return false;
+		}
+		
+		var nameRegex = /^[ê°€-í£]{2,10}$/;
+		if(!nameRegex.test(name)){
+			alert('ì„±í•¨ì€ í•œê¸€ë§Œ ì…ë ¥í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.');
+			document.getElementById('name').focus();
 			return false;
 		}
 		
 		if(loginPw.lenth <= 6 || loginPw.lenth >= 11){
-			alert('6ÀÚ~12ÀÚÀÇ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.');
+			alert('6ì~12ìì˜ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+			document.getElementById('loginPw').focus();
 			return false;
 		}
 		
 		
 		if(loginPw != loginPwConfirm){
-			alert('ÀÔ·ÂÇÏ½Å µÎ ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.');
+			alert('ì…ë ¥í•˜ì‹  ë‘ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.');
+			document.getElementById('loginPw').focus();
 			return false;
 		}
 		
@@ -101,16 +153,21 @@
 		var cellphoneNoRegex = /^[0-9]{4}$/;
 		
 		if(!cellphoneNoRegex.test(cellphoneNo_2) || !cellphoneNoRegex.test(cellphoneNo_3)){
-			alert('ÇÚµåÆù ¹øÈ£°¡ ¿Ã¹Ù¸¥Áö È®ÀÎÇØÁÖ¼¼¿ä.');
+			alert('í•¸ë“œí° ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥¸ì§€ í™•ì¸í•´ì£¼ì„¸ìš”.');
+			document.getElementById('cellphoneNo_2').focus();
 			return false;
 		}
 		
 		var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
+		var postNoRegex2 = /^[0-9]{3}[0-9]{3}$/;
 		
-		if(!postNoRegex.test(postNo)){
-			alert('¿ìÆí¹øÈ£°¡ ¿Ã¹Ù¸¥Áö È®ÀÎÇØÁÖ¼¼¿ä.');
-			return false;
+		if(postNo != null){
+			if(!postNoRegex.test(postNo) && !postNoRegex2.test(postNo)){
+				alert('ìš°í¸ë²ˆí˜¸ëŠ” xxx-xxx í˜•ì‹ìœ¼ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.');
+				return false;
+			}	
 		}
+		
 		
 		
 
@@ -131,7 +188,7 @@
 	        },
 	        success: function(data, textStatus, jqXHR){
 	        	
-	        	alert('È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.');
+	        	alert('íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.');
 	        	
 	        	window.location.href = "/user/login.do";
 	        }
@@ -167,26 +224,26 @@ tbody tr:nth-child(5)>td>select {
 						<tr>
 							<td width="80" align="center">id</td>
 							<td width="80" align="left"><input type="text"
-								name="loginId" id="loginId"></td>
+								name="loginId" id="loginId" maxlength="15"></td>
 							<td>
-								<button id="loginIdCheck" type="button" onclick="idCheck();">Áßº¹ È®ÀÎ</button>
+								<button id="loginIdCheck" type="button" onclick="idCheck();">ì¤‘ë³µ í™•ì¸</button>
 							</td>
 						</tr>
 						<tr>
 							<td width="80" align="center">pw</td>
 							<td width="100" align="left"><input type="password"
-								name="loginPw"></td>
+								name="loginPw" id="loginPw" maxlength="12"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">pw check</td>
 							<td width="100" align="left"><input type="password"
-								name="loginPwConfirm"></td>
+								name="loginPwConfirm" id="loginPwConfirm" maxlength="12"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">name</td>
-							<td width="100" align="left"><input type="text" name="name">
+							<td width="100" align="left"><input type="text" name="name" id="name" maxlength="10">
 							</td>
 							<td width="120" align="right"></td>
 						</tr>
@@ -197,27 +254,27 @@ tbody tr:nth-child(5)>td>select {
 										step="1" varStatus="status">
 										<option value="${p.codeName}">${p.codeName}</option>
 									</c:forEach>
-							</select> -&nbsp;<input type="text" name="cellphoneNo_2" width="30">
-								-&nbsp;<input type="text" name="cellphoneNo_3" width="30">
+							</select> -&nbsp;<input type="text" name="cellphoneNo_2" id="cellphoneNo_2" width="30" maxlength="4">
+								-&nbsp;<input type="text" name="cellphoneNo_3" id="cellphoneNo_3" width="30" maxlength="4">
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">postNo</td>
 							<td width="100" align="left"><input type="text"
-								name="postNo"></td>
+								name="postNo" id="postNo"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">address</td>
 							<td width="100" align="left"><input type="text"
-								name="address"></td>
+								name="address" id="address"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">company</td>
 							<td width="100" align="left"><input type="text"
-								name="company"></td>
+								name="company" id="company"></td>
 							<td width="120" align="right"></td>
 						</tr>
 

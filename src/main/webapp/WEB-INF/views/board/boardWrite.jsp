@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/common.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>boardWrite</title>
 </head>
 <script type="text/javascript">
@@ -22,14 +22,14 @@
 				type : "POST",
 				data : param,
 				success : function(data, textStatus, jqXHR) {
-					alert("ÀÛ¼º¿Ï·á");
+					alert("ì‘ì„±ì™„ë£Œ");
 
-					alert("¸Ş¼¼Áö:" + data.success);
+					alert("ë©”ì„¸ì§€:" + data.success);
 
 					location.href = "/board/boardList.do";
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
-					alert("½ÇÆĞ");
+					alert("ì‹¤íŒ¨");
 				}
 			});
 		});
@@ -39,7 +39,7 @@
 	<form class="boardWrite">
 		<table align="center">
 			<tr>
-				<td align="right"><input id="submit" type="button" value="ÀÛ¼º">
+				<td align="right"><input id="submit" type="button" value="ì‘ì„±">
 				</td>
 			</tr>
 			<tr>
@@ -49,10 +49,10 @@
 							<td width="120" align="center">Type</td>
 							<td width="400">
 							<select name="boardType">
-								<option value="a01">ÀÏ¹İ</option>
+								<option value="a01">ì¼ë°˜</option>
 								<option value="a02">Q&A</option>
-								<option value="a03">ÀÍ¸í</option>
-								<option value="a04">ÀÚÀ¯</option>
+								<option value="a03">ìµëª…</option>
+								<option value="a04">ììœ </option>
 							</select>
 						</tr>
 						<tr>
