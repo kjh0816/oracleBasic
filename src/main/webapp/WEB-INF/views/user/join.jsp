@@ -49,7 +49,7 @@
 		}
 		
 		
-		var loginIdRegex = /^[a-z0-9+]$/;
+		var loginIdRegex = /^[a-z0-9]*$/;
 		if(!loginIdRegex.test(loginId)){
 			alert('아이디는 영소문자, 숫자만 입력할 수 있습니다.');
 			document.getElementById('loginId').focus();
@@ -96,21 +96,8 @@
 		var company = form.company.value;
 		
 		
-		if(loginId.length == 0){
-			alert('아이디를 입력해주세요.');
-			document.getElementById('loginId').focus();
-			return false;
-		}
 		
-		var loginIdRegex = /^[a-z0-9+]$/;
-		if(!loginIdRegex.test(loginId)){
-			alert('아이디는 영소문자, 숫자만 입력할 수 있습니다.');
-			document.getElementById('loginId').focus();
-			return false;	
-		}
-		
-		if(!isUsableLoginId){
-			alert('아이디 중복확인 해주세요.');
+		if(idCheck()){
 			return false;
 		}
 		
