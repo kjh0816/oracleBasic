@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -40,11 +41,11 @@ public class BoardController {
 	@RequestMapping(value = "/board/boardList.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String boardList(Locale locale
 			, HttpServletRequest request
+			, HttpServletResponse response
 			, Model model
 			, PageVo pageVo
 			, @RequestParam(value="boardTypesChecked", required=true, defaultValue="") List<String> boardTypesChecked
 			) throws Exception{
-		
 		
 
 		
@@ -87,8 +88,75 @@ public class BoardController {
 		model.addAttribute("pageNo", page);
 		model.addAttribute("comList", comList);
 		
+		response.setCharacterEncoding("UTF-8");
 		
 		return "board/boardList";
+	}
+	
+	@RequestMapping(value = "/board/boardListAjax.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String boardListAjax(Locale locale
+			, HttpServletRequest request
+			, HttpServletResponse response
+			, Model model
+			, PageVo pageVo
+			, @RequestParam(value="boardTypesChecked", required=true, defaultValue="") List<String> boardTypesChecked
+			) throws Exception{
+		
+
+
+		
+		List<BoardVo> boardList = new ArrayList<BoardVo>();
+		List<ComVo> comList = new ArrayList<ComVo>();
+		
+		comList = boardService.selectCom();
+
+		
+		
+		
+		int page = 1;
+		int totalCnt = 0;
+		
+		if(pageVo.getPageNo() == 0){
+			pageVo.setPageNo(page);
+		}
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("pageNo", pageVo.getPageNo());
+		
+		if(boardTypesChecked == null || boardTypesChecked.isEmpty()) {
+
+			// null 인 경우, 전체 게시물을 출력하므로, 전체 게시물을 카운트한다.
+			totalCnt = boardService.selectBoardCnt();
+		}else {
+
+			
+			params.put("boardType", boardTypesChecked);
+			totalCnt = boardService.selectBoardCntByComCode(params);
+		}
+		
+		
+		boardList = boardService.SelectBoardList(params);
+		
+
+		
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		
+		result.put("boardList", boardList);
+		result.put("totalCnt", totalCnt);
+		result.put("pageNo", page);
+		result.put("comList", comList);
+		
+		
+		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
+		
+		response.setCharacterEncoding("UTF-8");
+		
+		return callbackMsg;
 	}
 	
 	
@@ -107,6 +175,8 @@ public class BoardController {
 		model.addAttribute("boardType", boardType);
 		model.addAttribute("boardNum", boardNum);
 		model.addAttribute("board", boardVo);
+		
+		
 		
 		return "board/boardView";
 	}
