@@ -147,7 +147,7 @@
 		var cellphoneNoRegex = /^[0-9]{4}$/;
 		
 		if(!cellphoneNoRegex.test(cellphoneNo_2) || !cellphoneNoRegex.test(cellphoneNo_3)){
-			alert('핸드폰 번호가 올바른지 확인해주세요.');
+			alert('핸드폰 xxxx-xxxx 형식으로 입력해주세요.');
 			document.getElementById('cellphoneNo_2').focus();
 			return false;
 		}
