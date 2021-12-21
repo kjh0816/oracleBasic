@@ -69,6 +69,21 @@ public class UserController {
 			) throws Exception {
 		
 		
+		
+		UserVo existingUser = userService.selectUserByLoginId(loginId);
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		CommonUtil commonUtil = new CommonUtil();
+		
+		
+		
+		if(existingUser != null) {
+			
+			result.put("msg", "0");
+			String errorMsg = commonUtil.getJsonCallBackString(" ",result);
+			return errorMsg;
+		}
+		
 		UserVo userVo = new UserVo();
 		
 		userVo.setLoginId(loginId);
@@ -85,8 +100,7 @@ public class UserController {
 		
 		
 		
-		HashMap<String, String> result = new HashMap<String, String>();
-		CommonUtil commonUtil = new CommonUtil();
+		
 		
 		int resultCnt = userService.userInsert(userVo);
 		

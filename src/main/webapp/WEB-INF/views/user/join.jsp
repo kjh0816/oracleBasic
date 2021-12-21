@@ -35,9 +35,8 @@
 
 	});
 	
-	var isUsableLoginId = false;
 	
-	function idCheck() {
+	function idCheck(isJoin) {
 		
 		var loginId = $j('#loginId').val();
 		
@@ -65,12 +64,16 @@
 				loginId:loginId
 				},
 			success : function(data, textStatus, jqXHR) {
+				if(!isJoin){
 				if(data.msg == '0'){
 					alert('사용할 수 없는 아이디입니다.');
 					document.getElementById('loginId').focus();
 				}else{
-					alert('사용할 수 있는 아이디입니다.');
-					isUsableLoginId = true;
+					
+						alert('사용할 수 있는 아이디입니다.');	
+					}
+					
+					
 					
 				}
 			}
@@ -79,6 +82,8 @@
 		
 		
 	}
+	
+	var once = true;
 
 	function join(form) {
 		
@@ -96,8 +101,9 @@
 		var company = form.company.value;
 		
 		
+		var isJoin = true;
 		
-		if(idCheck()){
+		if(idCheck(isJoin)){
 			return false;
 		}
 		
@@ -159,7 +165,7 @@
 		
 		
 		
-
+		if(once){
 		$j.ajax({
 	        type: 'POST',
 	        url: '/user/actionJoin.do',
@@ -177,13 +183,21 @@
 	        },
 	        success: function(data, textStatus, jqXHR){
 	        	
-	        	alert('회원가입이 완료되었습니다.');
+	        	if(data.msg == '0'){
+	        		alert('사용할 수 없는 아이디입니다.');
+	        	}else{
+	        		
+	        		once = false;
+		        	
+		        	alert('회원가입이 완료되었습니다.');
+		        	
+		        	window.location.href = "/user/login.do";	
+	        	}
 	        	
-	        	window.location.href = "/user/login.do";
 	        }
 
 	    });
-		
+		}
 
 	}
 </script>
@@ -215,7 +229,8 @@ tbody tr:nth-child(5)>td>select {
 							<td width="80" align="left"><input type="text"
 								name="loginId" id="loginId" maxlength="15"></td>
 							<td>
-								<button id="loginIdCheck" type="button" onclick="idCheck();">중복 확인</button>
+								<button id="loginIdCheck" type="button" onclick="idCheck();">중복
+									확인</button>
 							</td>
 						</tr>
 						<tr>
@@ -232,8 +247,8 @@ tbody tr:nth-child(5)>td>select {
 						</tr>
 						<tr>
 							<td width="80" align="center">name</td>
-							<td width="100" align="left"><input type="text" name="name" id="name" maxlength="10">
-							</td>
+							<td width="100" align="left"><input type="text" name="name"
+								id="name" maxlength="10"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr>
@@ -243,9 +258,10 @@ tbody tr:nth-child(5)>td>select {
 										step="1" varStatus="status">
 										<option value="${p.codeName}">${p.codeName}</option>
 									</c:forEach>
-							</select> -&nbsp;<input type="text" name="cellphoneNo_2" id="cellphoneNo_2" width="30" maxlength="4">
-								-&nbsp;<input type="text" name="cellphoneNo_3" id="cellphoneNo_3" width="30" maxlength="4">
-							</td>
+							</select> -&nbsp;<input type="text" name="cellphoneNo_2"
+								id="cellphoneNo_2" width="30" maxlength="4"> -&nbsp;<input
+								type="text" name="cellphoneNo_3" id="cellphoneNo_3" width="30"
+								maxlength="4"></td>
 							<td></td>
 						</tr>
 						<tr>
@@ -271,7 +287,8 @@ tbody tr:nth-child(5)>td>select {
 				</td>
 			</tr>
 			<tr>
-				<td align="right"><input class="submit" type="submit" value="join"/></td>
+				<td align="right"><input class="submit" type="submit"
+					value="join" /></td>
 			</tr>
 
 
