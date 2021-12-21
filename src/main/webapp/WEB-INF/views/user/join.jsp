@@ -9,6 +9,36 @@
 </head>
 <script type="text/javascript">
 	$j(document).ready(function() {
+		
+		
+		$j('#loginPw , #loginPwConfirm').on("change keyup paste", function(){
+			var loginPw = $j('#loginPw').val();
+			var loginPwConfirm = $j('#loginPwConfirm').val();
+			
+			if((loginPw == loginPwConfirm)  && ($j('#loginPw').val() >= 6 || $j('#loginPw').val() <= 12)){
+				
+				
+				
+				var wording = '두 비밀번호가 일치합니다.';
+				$j('#pwResult').remove()
+				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>")
+				
+				$j("#pwResult").css("color", "green");
+				
+			}else if(($j('#loginPw').val() >= 6 || $j('#loginPw').val() <= 12) && (loginPw != loginPwConfirm)){
+				
+				
+				var wording = '두 비밀번호가 일치하지 않습니다.';
+				$j('#pwResult').remove();
+				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>");
+				
+				$j("#pwResult").css("color", "red");
+			}
+			
+			
+		});
+		
+		
 		$j('#postNo').blur(function(){
 			
 			var postNo = $j('#postNo').val();
@@ -202,6 +232,11 @@
 	}
 </script>
 <style>
+
+#pwResult{
+	font-size: 5px;
+}
+
 tbody tr:nth-child(5)>td>input {
 	width: 30px;
 }
@@ -239,11 +274,11 @@ tbody tr:nth-child(5)>td>select {
 								name="loginPw" id="loginPw" maxlength="12"></td>
 							<td width="120" align="right"></td>
 						</tr>
-						<tr>
+						<tr id="pwPart">
 							<td width="80" align="center">pw check</td>
 							<td width="100" align="left"><input type="password"
 								name="loginPwConfirm" id="loginPwConfirm" maxlength="12"></td>
-							<td width="120" align="right"></td>
+							<td id="pwResult" width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">name</td>
