@@ -11,25 +11,26 @@
 	$j(document).ready(function() {
 		$j('#postNo').blur(function(){
 			
-			var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
-			var postNoRegex2 = /[0-9]{6}$/;
+			var postNo = $j('#postNo').val();
 			
-			alert(postNoRegex2.test(postNo));
+			var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
+			var postNoRegex2 = /^[0-9]{6}$/;
+			
 			
 			if(postNo.lenth != 0){
 				if(!postNoRegex.test(postNo) && !postNoRegex2.test(postNo)){
+					
 					alert('우편번호는 xxx-xxx 형식으로 입력해주세요.');
 					return false;
 				}	
 			}
 			
 			
-			
 			if(postNoRegex2.test(postNo)){
-				alert(postNo.substr(0, 3));
+				$j('#postNo').val(postNo.substr(0, 3) + '-' + postNo.substr(3,7));
 			}
 			
-			$j('#postNo').val('yee');
+			
 		});
 
 	});
@@ -159,7 +160,8 @@
 		}
 		
 		var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
-		var postNoRegex2 = /^[0-9]{3}[0-9]{3}$/;
+		var postNoRegex2 = /^\d{6}$/;
+		
 		
 		if(postNo != null){
 			if(!postNoRegex.test(postNo) && !postNoRegex2.test(postNo)){
