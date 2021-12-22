@@ -10,21 +10,23 @@
 <script type="text/javascript">
 	$j(document).ready(function() {
 		
+		$j('#loginId').on("change keyup paste", function(){ 
+			if (!(event.keyCode >=37 && event.keyCode<=40)) { 
+				var inputVal = $j(this).val(); 
+				var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
+				if(check.test(inputVal)){ 
+					$j(this).val(""); 
+				} 
+			} 
+		});
+		
 		
 		$j('#loginPw , #loginPwConfirm').on("change keyup paste", function(){
-			var loginPw = $j('#loginPw').val();
-			var loginPwConfirm = $j('#loginPwConfirm').val();
 			
-			console.log(typeof($j('#loginPw').val().length));
-			console.log(typeof($j('#loginPwConfirm').val().length));
-			
-			console.log($j('#loginPw').val().length);
-			console.log($j('#loginPwConfirm').val().length);
-			
-			console.log($j('#loginPw').val() >= 6 || $j('#loginPw').val() <= 12);
+			console.log('실행됨1');
+
 			
 			if(($j('#loginPw').val() == $j('#loginPwConfirm').val())  && ($j('#loginPw').val().length >= 6 || $j('#loginPw').val().length <= 12)){
-				
 				
 				
 				var wording = '두 비밀번호가 일치합니다.';
@@ -33,7 +35,7 @@
 				
 				$j("#pwResult").css("color", "green");
 				
-			}else if(($j('#loginPw').val().length != 0 && loginPwConfirm.length != 0) && ($j('#loginPw').val() != $j('#loginPw').val())){
+			}else if(($j('#loginPw').val().length != 0 && loginPwConfirm.length != 0) && ($j('#loginPw').val() != $j('#loginPwConfirm').val())){
 				
 				
 				var wording = '두 비밀번호가 일치하지 않습니다.';
@@ -41,6 +43,8 @@
 				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>");
 				
 				$j("#pwResult").css("color", "red");
+				
+				
 			}else if($j('#loginPw').val().length > 12 || $j('#loginPw').val().length < 6){
 				
 				
@@ -92,23 +96,6 @@
 			
 		});
 		
-		$j('#name').on("change keyup paste", function(){
-			var nameRegex = /^[가-힣]{2,5}$/;
-			
-			if(!nameRegex.test($j('#name').val()) && $j('#name').val().length > 1){
-				
-				var wording = '성함은 한글로만 입력해주십시오.';
-				$j('#nameResult').remove();
-				$j('#namePart').append("<td id='nameResult' width='120' align='right'>"+wording+"</td>");
-				
-				$j("#nameResult").css("color", "red");
-				
-			}else{
-				
-				$j('#nameResult').remove();
-				$j('#namePart').append("<td id='nameResult' width='120' align='right'></td>");
-			}
-		});
 		
 		$j('#cellphoneNo_2, #cellphoneNo_3').on("change keyup paste", function(){
 			
@@ -355,7 +342,7 @@ tbody tr:nth-child(5)>td>select {
 						<tr id="namePart">
 							<td width="80" align="center">name</td>
 							<td width="100" align="left"><input type="text" name="name"
-								id="name" maxlength="4"></td>
+								id="name" maxlength="5"></td>
 							<td id="nameResult" width="120" align="right"></td>
 						</tr>
 						<tr id="phonePart">

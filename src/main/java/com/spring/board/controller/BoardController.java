@@ -310,15 +310,12 @@ public class BoardController {
 			boardVo.setBoardTitle(boardTitle.get(i));
 			boardVo.setBoardComment(boardComment.get(i));
 			
-			System.out.println("===================================");
-			System.out.println("boardType: " + boardVo.getBoardType());
-			System.out.println("boardTitle: " + boardVo.getBoardTitle());
-			System.out.println("boardComment: " + boardVo.getBoardComment());
-			System.out.println("===================================");
+			
 			
 			int resultCnt = boardService.boardInsert(boardVo);
 			
 			if(resultCnt == 0) {
+				
 				result.put("msg", "작성에 실패했습니다.");
 				
 				String failMsg = commonUtil.getJsonCallBackString(" ",result);
