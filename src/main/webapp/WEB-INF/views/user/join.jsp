@@ -61,7 +61,7 @@
 		
 		$j('#name').on("change keyup paste", function(){
 			var name = $j(this).val(); 
-			var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
+			var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+$/; 
 			if(!check.test(name)){ 
 				$j(this).val(""); 
 			}
@@ -71,6 +71,65 @@
 			}
 			
 		});
+		
+		var cell = /^[0-9]+$/;
+		var cellphoneNoRegex = /^[0-9]{4}$/;
+		
+		$j('#cellphoneNo_2, #cellphoneNo_3').on("change keyup paste", function(){
+			if(!cell.test($j('#cellphoneNo_2').val())){
+				
+				$j('#cellphoneNo_2').val("");
+				
+			}
+			if(!cell.test($j('#cellphoneNo_3').val())){
+				
+				$j('#cellphoneNo_3').val("");
+				
+			}
+		});
+		
+		$j('#cellphoneNo_2').on("change", function(){
+			if(!cellphoneNoRegex.test($j('#cellphoneNo_2').val())){
+				
+				var wording = '4자리씩 입력해주십시오.';
+				$j('#phoneResult').remove();
+				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'>"+wording+"</td>");
+				
+				$j("#phoneResult").css("color", "red");
+				
+				$j('#cellphoneNo_2').focus();
+				
+			}else{
+				
+				$j('#phoneResult').remove();
+				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'></td>");
+				
+			}
+		});
+		
+		$j('#cellphoneNo_3').on("change", function(){
+			
+			if(!cellphoneNoRegex.test($j('#cellphoneNo_3').val())){
+				
+				var wording = '4자리씩 입력해주십시오.';
+				$j('#phoneResult').remove();
+				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'>"+wording+"</td>");
+				
+				$j("#phoneResult").css("color", "red");
+				
+				$j('#cellphoneNo_3').focus();
+				
+			}else{
+				
+				$j('#phoneResult').remove();
+				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'></td>");
+				
+			}
+		});
+		
+		
+
+	});
 		
 		
 		$j('#postNo').on("change keyup paste", function(){
@@ -110,28 +169,7 @@
 		});
 		
 		
-		$j('#cellphoneNo_2, #cellphoneNo_3').on("change keyup paste", function(){
-			
-			var cellphoneNoRegex = /^[0-9]{4}$/;
-			
-			if((!cellphoneNoRegex.test($j('#cellphoneNo_2').val()) || !cellphoneNoRegex.test($j('#cellphoneNo_3').val()))){
-				
-				var wording = '핸드폰 번호는 숫자만 8자리 입력해주십시오.';
-				$j('#phoneResult').remove();
-				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'>"+wording+"</td>");
-				
-				$j("#phoneResult").css("color", "red");
-				
-			}else{
-				
-				$j('#phoneResult').remove();
-				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'></td>");
-				
-			}
-			
-		});
-
-	});
+		
 	
 	
 	
@@ -258,12 +296,7 @@
 		var postNoRegex2 = /^\d{6}$/;
 		
 		
-		if(postNo != null){
-			if(!postNoRegex.test(postNo) && !postNoRegex2.test(postNo)){
-				alert('우편번호는 xxx-xxx 형식으로 입력해주세요.');
-				return false;
-			}	
-		}
+		
 		
 		
 		
