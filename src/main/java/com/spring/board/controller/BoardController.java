@@ -273,27 +273,70 @@ public class BoardController {
 	@RequestMapping(value = "/board/boardWrite.do", method = RequestMethod.GET)
 	public String boardWrite(Locale locale, Model model) throws Exception{
 		
+		List<ComVo> comList = new ArrayList<ComVo>();
+		
+		comList = boardService.selectCom();
+		
+		model.addAttribute("comList", comList);
 		
 		return "board/boardWrite";
 	}
 	
-	@RequestMapping(value = "/board/boardWriteAction.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/board/boardWriteAction.do", method = RequestMethod.GET)
 	@ResponseBody
-	public String boardWriteAction(Locale locale,BoardVo boardVo) throws Exception{
+	public String boardWriteAction(
+			Locale locale
+			, @RequestParam(value="boardType", required=true, defaultValue="") List<String> boardType
+			, @RequestParam(value="boardTitle", required=true, defaultValue="") List<String> boardTitle
+			, @RequestParam(value="boardComment", required=true, defaultValue="") List<String> boardComment
+			) throws Exception{
 		
 		
+		int listSize = boardType.size();
+		
+		List<BoardVo> boardList = new ArrayList<BoardVo>();
 		
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
 		
-		int resultCnt = boardService.boardInsert(boardVo);
+		for(int i = 0; i < listSize; i++) {
+			
+			
+			
+			
+			BoardVo boardVo = new BoardVo();
+			
+			boardVo.setBoardType(boardType.get(i));
+			boardVo.setBoardTitle(boardTitle.get(i));
+			boardVo.setBoardComment(boardComment.get(i));
+			
+			System.out.println("===================================");
+			System.out.println("boardType: " + boardVo.getBoardType());
+			System.out.println("boardTitle: " + boardVo.getBoardTitle());
+			System.out.println("boardComment: " + boardVo.getBoardComment());
+			System.out.println("===================================");
+			
+			int resultCnt = boardService.boardInsert(boardVo);
+			
+			if(resultCnt == 0) {
+				result.put("msg", "작성에 실패했습니다.");
+				
+				String failMsg = commonUtil.getJsonCallBackString(" ",result);
+				
+				return failMsg;
+				
+			}
+			
+		}
 		
-		result.put("success", (resultCnt > 0)?"Y":"N");
+		result.put("msg", "작성 완료");
+		
 		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
 		
 		System.out.println("callbackMsg::"+callbackMsg);
 		
 		return callbackMsg;
+		
 	}
 	
 }

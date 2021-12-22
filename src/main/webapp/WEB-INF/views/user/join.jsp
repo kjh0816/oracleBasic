@@ -114,7 +114,7 @@
 			
 			var cellphoneNoRegex = /^[0-9]{4}$/;
 			
-			if(!cellphoneNoRegex.test($j('#cellphoneNo_2').val()) || !cellphoneNoRegex.test($j('#cellphoneNo_3').val())){
+			if((!cellphoneNoRegex.test($j('#cellphoneNo_2').val()) || !cellphoneNoRegex.test($j('#cellphoneNo_3').val()))){
 				
 				var wording = '핸드폰 번호는 숫자만 8자리 입력해주십시오.';
 				$j('#phoneResult').remove();
