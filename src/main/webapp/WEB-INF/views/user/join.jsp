@@ -59,6 +59,19 @@
 			
 		});
 		
+		$j('#name').on("change keyup paste", function(){
+			var name = $j(this).val(); 
+			var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
+			if(!check.test(name)){ 
+				$j(this).val(""); 
+			}
+			
+			if(name.length == 6){
+				$j('#name').val($j('#name').val().substr(0, 5));
+			}
+			
+		});
+		
 		
 		$j('#postNo').on("change keyup paste", function(){
 			
