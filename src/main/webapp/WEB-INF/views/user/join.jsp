@@ -15,7 +15,15 @@
 			var loginPw = $j('#loginPw').val();
 			var loginPwConfirm = $j('#loginPwConfirm').val();
 			
-			if((loginPw == loginPwConfirm)  && ($j('#loginPw').val() >= 6 || $j('#loginPw').val() <= 12)){
+			console.log(typeof($j('#loginPw').val().length));
+			console.log(typeof($j('#loginPwConfirm').val().length));
+			
+			console.log($j('#loginPw').val().length);
+			console.log($j('#loginPwConfirm').val().length);
+			
+			console.log($j('#loginPw').val() >= 6 || $j('#loginPw').val() <= 12);
+			
+			if(($j('#loginPw').val() == $j('#loginPwConfirm').val())  && ($j('#loginPw').val().length >= 6 || $j('#loginPw').val().length <= 12)){
 				
 				
 				
@@ -25,7 +33,7 @@
 				
 				$j("#pwResult").css("color", "green");
 				
-			}else if(($j('#loginPw').val() >= 6 || $j('#loginPw').val() <= 12) && (loginPw != loginPwConfirm)){
+			}else if(($j('#loginPw').val().length != 0 && loginPwConfirm.length != 0) && ($j('#loginPw').val() != $j('#loginPw').val())){
 				
 				
 				var wording = '두 비밀번호가 일치하지 않습니다.';
@@ -33,6 +41,15 @@
 				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>");
 				
 				$j("#pwResult").css("color", "red");
+			}else if($j('#loginPw').val().length > 12 || $j('#loginPw').val().length < 6){
+				
+				
+				var wording = '6~12자리만 가능합니다.';
+				$j('#pwResult').remove();
+				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>");
+				
+				$j("#pwResult").css("color", "red");
+				
 			}
 			
 			
@@ -69,6 +86,7 @@
 	function idCheck(isJoin) {
 		
 		var loginId = $j('#loginId').val();
+		
 		
 		
 		if(loginId.length == 0){
