@@ -56,7 +56,7 @@
 		});
 		
 		
-		$j('#postNo').blur(function(){
+		$j('#postNo').on("change keyup paste", function(){
 			
 			var postNo = $j('#postNo').val();
 			
@@ -64,23 +64,77 @@
 			var postNoRegex2 = /^[0-9]{6}$/;
 			
 			
-			if(postNo.lenth != 0){
-				if(!postNoRegex.test(postNo) && !postNoRegex2.test(postNo)){
+			if($j('#postNo').val().lenth != 0 && (!postNoRegex.test(postNo) && !postNoRegex2.test(postNo))){
 					
-					alert('우편번호는 xxx-xxx 형식으로 입력해주세요.');
-					return false;
-				}	
+					var wording = '우편번호는 xxx-xxx 형식으로 입력해주세요.';
+					$j('#postNoResult').remove();
+					$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'>"+wording+"</td>");
+					
+					$j("#postNoResult").css("color", "red");
+					
 			}
 			
 			
 			if(postNoRegex2.test(postNo)){
+				
+				$j('#postNoResult').remove();
+				$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'></td>");
+				
 				$j('#postNo').val(postNo.substr(0, 3) + '-' + postNo.substr(3,7));
+				
+			}else if(postNoRegex.test(postNo)){
+				
+				$j('#postNoResult').remove();
+				$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'></td>");
+				
 			}
 			
 			
 		});
+		
+		$j('#name').on("change keyup paste", function(){
+			var nameRegex = /^[가-힣]{2,5}$/;
+			
+			if(!nameRegex.test($j('#name').val()) && $j('#name').val().length > 1){
+				
+				var wording = '성함은 한글로만 입력해주십시오.';
+				$j('#nameResult').remove();
+				$j('#namePart').append("<td id='nameResult' width='120' align='right'>"+wording+"</td>");
+				
+				$j("#nameResult").css("color", "red");
+				
+			}else{
+				
+				$j('#nameResult').remove();
+				$j('#namePart').append("<td id='nameResult' width='120' align='right'></td>");
+			}
+		});
+		
+		$j('#cellphoneNo_2, #cellphoneNo_3').on("change keyup paste", function(){
+			
+			var cellphoneNoRegex = /^[0-9]{4}$/;
+			
+			if(!cellphoneNoRegex.test($j('#cellphoneNo_2').val()) || !cellphoneNoRegex.test($j('#cellphoneNo_3').val())){
+				
+				var wording = '핸드폰 번호는 숫자만 8자리 입력해주십시오.';
+				$j('#phoneResult').remove();
+				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'>"+wording+"</td>");
+				
+				$j("#phoneResult").css("color", "red");
+				
+			}else{
+				
+				$j('#phoneResult').remove();
+				$j('#phonePart').append("<td id='phoneResult' width='120' align='right'></td>");
+				
+			}
+			
+		});
 
 	});
+	
+	
+	
 	
 	
 	function idCheck(isJoin) {
@@ -171,7 +225,7 @@
 			return false;
 		}
 		
-		var nameRegex = /^[가-힣]{2,10}$/;
+		var nameRegex = /^[가-힣]{2,5}$/;
 		if(!nameRegex.test(name)){
 			alert('성함은 한글만 입력할 수 있습니다.');
 			document.getElementById('name').focus();
@@ -251,7 +305,7 @@
 </script>
 <style>
 
-#pwResult{
+#pwResult, #postNoResult, #nameResult, #phoneResult{
 	font-size: 5px;
 }
 
@@ -289,22 +343,22 @@ tbody tr:nth-child(5)>td>select {
 						<tr>
 							<td width="80" align="center">pw</td>
 							<td width="100" align="left"><input type="password"
-								name="loginPw" id="loginPw" maxlength="12"></td>
+								name="loginPw" id="loginPw" maxlength="16"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr id="pwPart">
 							<td width="80" align="center">pw check</td>
 							<td width="100" align="left"><input type="password"
-								name="loginPwConfirm" id="loginPwConfirm" maxlength="12"></td>
+								name="loginPwConfirm" id="loginPwConfirm" maxlength="16"></td>
 							<td id="pwResult" width="120" align="right"></td>
 						</tr>
-						<tr>
+						<tr id="namePart">
 							<td width="80" align="center">name</td>
 							<td width="100" align="left"><input type="text" name="name"
-								id="name" maxlength="10"></td>
-							<td width="120" align="right"></td>
+								id="name" maxlength="4"></td>
+							<td id="nameResult" width="120" align="right"></td>
 						</tr>
-						<tr>
+						<tr id="phonePart">
 							<td width="80" align="center">phone</td>
 							<td width="100"><select name="cellphoneNo_1">
 									<c:forEach var="p" items="${phoneNumList}" begin="0" end="3"
@@ -315,13 +369,13 @@ tbody tr:nth-child(5)>td>select {
 								id="cellphoneNo_2" width="30" maxlength="4"> -&nbsp;<input
 								type="text" name="cellphoneNo_3" id="cellphoneNo_3" width="30"
 								maxlength="4"></td>
-							<td></td>
+							<td id="phoneResult" width="120" align="right"></td>
 						</tr>
-						<tr>
+						<tr id="postNoPart">
 							<td width="80" align="center">postNo</td>
 							<td width="100" align="left"><input type="text"
-								name="postNo" id="postNo"></td>
-							<td width="120" align="right"></td>
+								name="postNo" id="postNo" maxlength="7"></td>
+							<td id="postNoResult" width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">address</td>
