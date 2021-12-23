@@ -3,6 +3,7 @@ package com.spring.board.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,6 +69,12 @@ public class UserController {
 			
 			) throws Exception {
 		
+		String pattern = "/^[0-9]{3}[-]+[0-9]{3}$/";
+		
+		boolean postNoRegex = Pattern.matches(pattern, postNo);
+		if(!postNoRegex) {
+			postNo = "";
+		}
 		
 		
 		UserVo existingUser = userService.selectUserByLoginId(loginId);

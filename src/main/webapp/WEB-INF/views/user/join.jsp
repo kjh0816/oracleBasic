@@ -23,10 +23,10 @@
 		
 		$j('#loginPw , #loginPwConfirm').on("change keyup paste", function(){
 			
-			console.log('실행됨1');
+			
 
 			
-			if(($j('#loginPw').val() == $j('#loginPwConfirm').val())  && ($j('#loginPw').val().length >= 6 || $j('#loginPw').val().length <= 12)){
+			if(($j('#loginPw').val() == $j('#loginPwConfirm').val())  && ($j('#loginPw').val().length >= 6 && $j('#loginPw').val().length <= 12)){
 				
 				
 				var wording = '두 비밀번호가 일치합니다.';
@@ -53,6 +53,11 @@
 				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>");
 				
 				$j("#pwResult").css("color", "red");
+				
+			}else if($j('#loginPw').val().length == 0 && $j('#loginPwConfirm').val().length){
+				
+				$j('#pwResult').remove()
+				$j('#pwPart').append("<td id='pwResult' width='120' align='right'></td>")
 				
 			}
 			
@@ -128,19 +133,22 @@
 		});
 		
 		
-
-	});
-		
-		
-		$j('#postNo').on("change keyup paste", function(){
+	$j('#postNo').on("change keyup paste", function(){
 			
 			var postNo = $j('#postNo').val();
 			
 			var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
 			var postNoRegex2 = /^[0-9]{6}$/;
 			
+			console.log($j('#postNo').val().lenth != 0);
+			if($j('#postNo').val().length == 0){
+				
+				$j('#postNoResult').remove();
+				$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'></td>");
+				
+			}
 			
-			if($j('#postNo').val().lenth != 0 && (!postNoRegex.test(postNo) && !postNoRegex2.test(postNo))){
+			if($j('#postNo').val().length != 0 && (!postNoRegex.test(postNo) && !postNoRegex2.test(postNo))){
 					
 					var wording = '우편번호는 xxx-xxx 형식으로 입력해주세요.';
 					$j('#postNoResult').remove();
@@ -169,8 +177,16 @@
 		});
 		
 		
+
+	});
 		
-	
+		
+		
+		
+		
+		
+	let isUsableId = false;
+	let usableId = '';
 	
 	
 	
@@ -210,6 +226,10 @@
 					document.getElementById('loginId').focus();
 				}else{
 					
+						isUsableId = true;
+						usableId = loginId;
+						console.log('usableId: ' + usableId);
+						console.log('loginId: ' + loginId);
 						alert('사용할 수 있는 아이디입니다.');	
 					}
 					
@@ -243,7 +263,11 @@
 		
 		var isJoin = true;
 		
-		if(idCheck(isJoin)){
+		console.log('usableId: ' + usableId);
+		console.log('loginId: ' + $j('#loginId').val());
+		
+		if(!isUsableId || $j('#loginId').val() != usableId){
+			alert('아이디 중복을 확인해주세요.');
 			return false;
 		}
 		
