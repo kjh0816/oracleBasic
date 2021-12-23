@@ -13,8 +13,6 @@
 		$j("#submit").on("click", function() {
 			var $frm = $j('.boardWrite :input');
 			var param = $frm.serialize();
-			
-			
 
 			$j.ajax({
 				url : "/board/boardWriteAction.do",
@@ -34,30 +32,38 @@
 	});
 
 	function addBoard(yee) {
-		
-		
-		$j(yee).remove();
-		
-		var boardHtml = '';
 
-		boardHtml += "<table align='center'>";
-		boardHtml += "<tr><td><table border='1'><tr><td width='120' align='center'>Type</td><td width='400'><select name='boardType'><option value='a01'>일반</option><option value='a02'>Q&A</option><option value='a03'>익명</option><option value='a04'>자유</option></select></tr>";
+		let boardHtml = '';
+
+		boardHtml += "<tr><td width='120' align='center'>Type</td><td width='400'><select name='boardType'><option value='a01'>일반</option><option value='a02'>Q&A</option><option value='a03'>익명</option><option value='a04'>자유</option></select></tr>";
 		boardHtml += "<tr><td width='120' align='center'>Title</td><td width='400'><input name='boardTitle' type='text' size='50'></td></tr>";
 		boardHtml += "<tr><td height='300' align='center'>Comment</td><td valign='top'><textarea name='boardComment' rows='20' cols='55'></textarea></td></tr>";
-		boardHtml += "<tr><td align='center'>Writer</td><td></td></tr></table></td></tr>";
-		boardHtml += "<tr><td id='addButton' align='right'><button onclick='addBoard(this);' type='button'>추가</button></td></tr></table>";
+
+		let buttonHtml = "<tr><td id='addButton' align='right'><button onclick='addBoard(this);' type='button'>추가</button>";
+
+		$j('#commentPart').after(boardHtml);
 		
-		$j('#boardWrite').append(boardHtml);
-		
-		
+
 	}
 </script>
 <body>
+	<%
+	String userName = (String) session.getAttribute("name");
+	if (userName == null) {
+		userName = "SYSTEM";
+	}
+	%>
+
 	<form id="boardWrite" class="boardWrite">
 		<table align="center">
 
 			<tr>
 				<td align="left"><a href="/board/boardList.do">List</a></td>
+			</tr>
+
+			<tr>
+				<td id="addButton" align="right"><button
+						onclick="addBoard(this);" type="button">추가</button>
 			</tr>
 
 			<tr>
@@ -67,7 +73,7 @@
 
 			<tr>
 				<td>
-					<table border="1">
+					<table border="1" align="center">
 						<tr>
 							<td width="120" align="center">Type</td>
 							<td width="400"><select name="boardType">
@@ -82,23 +88,23 @@
 							<td width="400"><input name="boardTitle" type="text"
 								size="50" value="${board.boardTitle}"></td>
 						</tr>
-						<tr>
+						<tr id="commentPart">
 							<td height="300" align="center">Comment</td>
 							<td valign="top"><textarea name="boardComment" rows="20"
 									cols="55">${board.boardComment}</textarea></td>
 						</tr>
+
+						<tbody id="boardWrite" align="center"></tbody>
 						<tr>
 							<td align="center">Writer</td>
-							<td></td>
+							<td>&nbsp;<%=userName%></td>
 						</tr>
 
 					</table>
 				</td>
 			</tr>
 
-			<tr>
-				<td id="addButton" align="right"><button onclick="addBoard(this);" type="button">추가</button>
-			</tr>
+
 
 		</table>
 	</form>

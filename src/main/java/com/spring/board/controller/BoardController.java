@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -28,6 +29,7 @@ import com.spring.board.service.boardService;
 import com.spring.board.vo.BoardVo;
 import com.spring.board.vo.ComVo;
 import com.spring.board.vo.PageVo;
+import com.spring.board.vo.UserVo;
 import com.spring.common.CommonUtil;
 
 @Controller
@@ -286,6 +288,7 @@ public class BoardController {
 	@ResponseBody
 	public String boardWriteAction(
 			Locale locale
+			, HttpServletRequest req
 			, @RequestParam(value="boardType", required=true, defaultValue="") List<String> boardType
 			, @RequestParam(value="boardTitle", required=true, defaultValue="") List<String> boardTitle
 			, @RequestParam(value="boardComment", required=true, defaultValue="") List<String> boardComment
@@ -299,6 +302,28 @@ public class BoardController {
 		HashMap<String, String> result = new HashMap<String, String>();
 		CommonUtil commonUtil = new CommonUtil();
 		
+		HttpSession loginSession = req.getSession();
+		
+		UserVo userVo = (UserVo) loginSession.getAttribute("loginedMember");
+		
+		String userName = "SYSTEM";
+		
+		System.out.println(userVo);
+		System.out.println(userVo);
+		System.out.println(userVo);
+		System.out.println(userVo);
+		System.out.println(userVo);
+		
+		if(userVo != null) {
+			userName = userVo.getName();
+		}
+		
+		System.out.println(userName);
+		System.out.println(userName);
+		System.out.println(userName);
+		System.out.println(userName);
+		
+		
 		for(int i = 0; i < listSize; i++) {
 			
 			
@@ -309,6 +334,7 @@ public class BoardController {
 			boardVo.setBoardType(boardType.get(i));
 			boardVo.setBoardTitle(boardTitle.get(i));
 			boardVo.setBoardComment(boardComment.get(i));
+			boardVo.setCreator(userName);
 			
 			
 			

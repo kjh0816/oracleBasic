@@ -8,6 +8,7 @@
     	<result property="boardTitle" 	column="BOARD_TITLE"/>
     	<result property="boardComment" column="BOARD_COMMENT"/>
     	<result property="extra__codeName" column="CODE_NAME"/>
+    	<result property="creator" column="CREATOR"/>
     </resultMap>
     
     <resultMap type="com.spring.board.vo.ComVo" id="comVo">
@@ -119,7 +120,7 @@
 	    WHERE BOARD_TYPE = #{boardType}), 1)
         ,#{boardTitle}
         ,#{boardComment}
-        ,'SYSTEM'
+        ,#{creator}
         ,TO_CHAR(SYSDATE)
         ,'SYSTEM'
         ,TO_CHAR(SYSDATE)
