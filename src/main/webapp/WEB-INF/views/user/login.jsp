@@ -18,16 +18,19 @@
 		
 		if(loginId.length == 0){
 			alert('아이디를 입력해주세요.');
+			form.loginId.focus();
 			return false;
 		}
 		
 		if(loginPw.length == 0){
 			alert('비밀번호를 입력해주세요.');
+			form.loginPw.focus();
 			return false;
 		}
 		
 		if(loginPw.lenth <= 6 || loginPw.lenth >= 11){
 			alert('6자~12자의 비밀번호를 입력해주세요.');
+			form.loginPw.focus();
 			return false;
 		}
 		
@@ -73,7 +76,7 @@ span {
 					<table border="1">
 						<tr>
 							<td width="120" align="center">id</td>
-							<td width="200"><input name="loginId" type="text" size="50"></td>
+							<td width="200"><input  name="loginId" type="text" size="50" autofocus="autofocus"></td>
 						</tr>
 						<tr>
 							<td width="120" align="center">pw</td>

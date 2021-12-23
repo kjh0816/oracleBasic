@@ -303,16 +303,22 @@
 		
 		if(loginPw != loginPwConfirm){
 			alert('입력하신 두 비밀번호가 일치하지 않습니다.');
-			document.getElementById('loginPw').focus();
+			document.getElementById('loginPwConfirm').focus();
 			return false;
 		}
 		
 		
 		var cellphoneNoRegex = /^[0-9]{4}$/;
 		
-		if(!cellphoneNoRegex.test(cellphoneNo_2) || !cellphoneNoRegex.test(cellphoneNo_3)){
+		if(!cellphoneNoRegex.test(cellphoneNo_2)){
 			alert('핸드폰 xxxx-xxxx 형식으로 입력해주세요.');
 			document.getElementById('cellphoneNo_2').focus();
+			return false;
+		}
+		
+		if(!cellphoneNoRegex.test(cellphoneNo_3)){
+			alert('핸드폰 xxxx-xxxx 형식으로 입력해주세요.');
+			document.getElementById('cellphoneNo_3').focus();
 			return false;
 		}
 		
@@ -320,9 +326,7 @@
 		var postNoRegex2 = /^\d{6}$/;
 		
 		
-		
-		
-		
+	
 		
 		if(once){
 		$j.ajax({
