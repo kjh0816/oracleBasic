@@ -36,6 +36,7 @@
 		$j('#boardWritePart').append(boardHtml);
 		
 	}
+	
 	function removeRow(yee) {
 		$j(yee).parent().parent().next().next().remove();
 		$j(yee).parent().parent().next().remove();
