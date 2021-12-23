@@ -32,7 +32,9 @@
 		boardHtml += "<tr><td width='120' align='center'>Type</td><td><select name='boardType'><option value='a01'>일반</option><option value='a02'>Q&A</option><option value='a03'>익명</option><option value='a04'>자유</option></select></td><td align='right'><button type='button' onclick='removeRow(this);'>삭제</button></td></tr>";
 		boardHtml += "<tr><td width='120' align='center'>Title</td><td width='400' colspan='2'><input name='boardTitle' type='text' size='50'></td></tr>";
 		boardHtml += "<tr><td height='300' align='center'>Comment</td><td valign='top' colspan='2'><textarea name='boardComment' rows='20' cols='55'></textarea></td></tr>";
-		$j('#boardTable > tbody:last').after(boardHtml);
+		
+		$j('#boardWritePart').append(boardHtml);
+		
 	}
 	function removeRow(yee) {
 		$j(yee).parent().parent().next().next().remove();
@@ -81,7 +83,7 @@
 							<td valign="top" colspan="2"><textarea name="boardComment"
 									rows="20" cols="55">${board.boardComment}</textarea></td>
 						</tr>
-						<tbody id="boardWrite" align="center"></tbody>
+						<tbody id="boardWritePart" align="center"></tbody>
 						<tr>
 							<td align="center">Writer</td>
 							<td colspan="2">&nbsp;<%=userName%></td>
