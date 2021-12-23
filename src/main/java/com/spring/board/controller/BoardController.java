@@ -308,20 +308,13 @@ public class BoardController {
 		
 		String userName = "SYSTEM";
 		
-		System.out.println(userVo);
-		System.out.println(userVo);
-		System.out.println(userVo);
-		System.out.println(userVo);
-		System.out.println(userVo);
+
 		
 		if(userVo != null) {
 			userName = userVo.getName();
 		}
 		
-		System.out.println(userName);
-		System.out.println(userName);
-		System.out.println(userName);
-		System.out.println(userName);
+	
 		
 		
 		for(int i = 0; i < listSize; i++) {

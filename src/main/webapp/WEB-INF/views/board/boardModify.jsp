@@ -73,6 +73,7 @@
 						Writer
 						</td>
 						<td>
+						&nbsp;${board.creator}
 						</td>
 					</tr>
 				</table>
