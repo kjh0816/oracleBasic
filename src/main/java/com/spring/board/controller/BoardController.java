@@ -319,9 +319,6 @@ public class BoardController {
 		
 		for(int i = 0; i < listSize; i++) {
 			
-			
-			
-			
 			BoardVo boardVo = new BoardVo();
 			
 			boardVo.setBoardType(boardType.get(i));

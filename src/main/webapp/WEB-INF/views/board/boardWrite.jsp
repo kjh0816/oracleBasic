@@ -9,11 +9,9 @@
 </head>
 <script type="text/javascript">
 	$j(document).ready(function() {
-
 		$j("#submit").on("click", function() {
 			var $frm = $j('.boardWrite :input');
 			var param = $frm.serialize();
-
 			$j.ajax({
 				url : "/board/boardWriteAction.do",
 				dataType : "json",
@@ -21,7 +19,6 @@
 				data : param,
 				success : function(data, textStatus, jqXHR) {
 					alert('작성 완료');
-
 					location.href = "/board/boardList.do";
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -30,20 +27,17 @@
 			});
 		});
 	});
-
 	function addBoard(yee) {
-
 		let boardHtml = '';
-
-		boardHtml += "<tr><td width='120' align='center'>Type</td><td width='400'><select name='boardType'><option value='a01'>일반</option><option value='a02'>Q&A</option><option value='a03'>익명</option><option value='a04'>자유</option></select></tr>";
-		boardHtml += "<tr><td width='120' align='center'>Title</td><td width='400'><input name='boardTitle' type='text' size='50'></td></tr>";
-		boardHtml += "<tr><td height='300' align='center'>Comment</td><td valign='top'><textarea name='boardComment' rows='20' cols='55'></textarea></td></tr>";
-
-		let buttonHtml = "<tr><td id='addButton' align='right'><button onclick='addBoard(this);' type='button'>추가</button>";
-
-		$j('#commentPart').after(boardHtml);
-		
-
+		boardHtml += "<tr><td width='120' align='center'>Type</td><td><select name='boardType'><option value='a01'>일반</option><option value='a02'>Q&A</option><option value='a03'>익명</option><option value='a04'>자유</option></select></td><td align='right'><button type='button' onclick='removeRow(this);'>삭제</button></td></tr>";
+		boardHtml += "<tr><td width='120' align='center'>Title</td><td width='400' colspan='2'><input name='boardTitle' type='text' size='50'></td></tr>";
+		boardHtml += "<tr><td height='300' align='center'>Comment</td><td valign='top' colspan='2'><textarea name='boardComment' rows='20' cols='55'></textarea></td></tr>";
+		$j('#boardTable > tbody:last').after(boardHtml);
+	}
+	function removeRow(yee) {
+		$j(yee).parent().parent().next().next().remove();
+		$j(yee).parent().parent().next().remove();
+		$j(yee).parent().parent().remove();
 	}
 </script>
 <body>
@@ -56,56 +50,44 @@
 
 	<form id="boardWrite" class="boardWrite">
 		<table align="center">
-
 			<tr>
 				<td align="left"><a href="/board/boardList.do">List</a></td>
 			</tr>
-
 			<tr>
-				<td id="addButton" align="right"><button
-						onclick="addBoard(this);" type="button">추가</button>
-			</tr>
-
-			<tr>
-				<td align="right"><input id="submit" type="button" value="작성">
+				<td id="addButton" align="right">
+					<button onclick="addBoard(this);" type="button">추가</button>
 				</td>
 			</tr>
-
 			<tr>
-				<td>
-					<table border="1" align="center">
+				<td align="right"><input id="submit" type="button" value="작성"></td>
+			</tr>
+			<tr>
+				<td><table id="boardTable" border="1" align="center">
 						<tr>
 							<td width="120" align="center">Type</td>
-							<td width="400"><select name="boardType">
-									<c:forEach var="com" items="${comList}" begin="0" end="3"
-										step="1" varStatus="status">
+							<td width="400" colspan="2"><select name="boardType"><c:forEach
+										var="com" items="${comList}" begin="0" end="3" step="1"
+										varStatus="status">
 										<option value="${com.codeId}">${com.codeName}</option>
-									</c:forEach>
-							</select>
+									</c:forEach></select>
 						</tr>
 						<tr>
 							<td width="120" align="center">Title</td>
-							<td width="400"><input name="boardTitle" type="text"
-								size="50" value="${board.boardTitle}"></td>
+							<td width="400" colspan="2"><input name="boardTitle"
+								type="text" size="50" value="${board.boardTitle}"></td>
 						</tr>
 						<tr id="commentPart">
 							<td height="300" align="center">Comment</td>
-							<td valign="top"><textarea name="boardComment" rows="20"
-									cols="55">${board.boardComment}</textarea></td>
+							<td valign="top" colspan="2"><textarea name="boardComment"
+									rows="20" cols="55">${board.boardComment}</textarea></td>
 						</tr>
-
 						<tbody id="boardWrite" align="center"></tbody>
 						<tr>
 							<td align="center">Writer</td>
-							<td>&nbsp;<%=userName%></td>
+							<td colspan="2">&nbsp;<%=userName%></td>
 						</tr>
-
-					</table>
-				</td>
+					</table></td>
 			</tr>
-
-
-
 		</table>
 	</form>
 </body>

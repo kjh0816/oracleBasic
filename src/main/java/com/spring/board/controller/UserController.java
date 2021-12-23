@@ -221,12 +221,7 @@ public class UserController {
 			loginSession.setAttribute("loginedMember", userVo);
 			loginSession.setAttribute("name", userVo.getName());
 			
-			System.out.println(userVo);
-			System.out.println(userVo);
-			System.out.println(userVo);
-			System.out.println(userVo);
-			System.out.println(userVo);
-			
+
 			
 			
 			UserVo loginedMember = (UserVo) loginSession.getAttribute("loginedMember");

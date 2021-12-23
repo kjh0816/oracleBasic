@@ -29,7 +29,7 @@
 			if(($j('#loginPw').val() == $j('#loginPwConfirm').val())  && ($j('#loginPw').val().length >= 6 && $j('#loginPw').val().length <= 12)){
 				
 				
-				var wording = '두 비밀번호가 일치합니다.';
+				var wording = '비밀번호가 일치합니다.';
 				$j('#pwResult').remove()
 				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>")
 				
@@ -38,7 +38,7 @@
 			}else if(($j('#loginPw').val().length != 0 && loginPwConfirm.length != 0) && ($j('#loginPw').val() != $j('#loginPwConfirm').val())){
 				
 				
-				var wording = '두 비밀번호가 일치하지 않습니다.';
+				var wording = '비밀번호가 일치하지 않습니다.';
 				$j('#pwResult').remove();
 				$j('#pwPart').append("<td id='pwResult' width='120' align='right'>"+wording+"</td>");
 				
@@ -302,7 +302,7 @@
 		
 		
 		if(loginPw != loginPwConfirm){
-			alert('입력하신 두 비밀번호가 일치하지 않습니다.');
+			alert('비밀번호가 일치하지 않습니다.');
 			document.getElementById('loginPwConfirm').focus();
 			return false;
 		}
