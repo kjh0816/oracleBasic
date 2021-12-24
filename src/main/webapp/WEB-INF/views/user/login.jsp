@@ -9,6 +9,21 @@
 </head>
 <script type="text/javascript">
 	$j(document).ready(function() {
+		
+		
+		$j('#loginId').on("input change keyup paste", function(){ 
+			if (!(event.keyCode >=37 && event.keyCode<=40)) {
+				
+				var inputVal = $j(this).val();
+				var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
+				
+				if(check.test(inputVal)){ 
+					$j(this).val(inputVal.slice(0, inputVal.length - 1)); 
+					
+				} 
+			} 
+		});
+		
 	});
 	
 	function doLogin(form){
@@ -76,11 +91,11 @@ span {
 					<table border="1">
 						<tr>
 							<td width="120" align="center">id</td>
-							<td width="200"><input  name="loginId" type="text" size="50" autofocus="autofocus"></td>
+							<td width="200"><input  name="loginId" type="text" size="50" autofocus="autofocus" maxlength="15"></td>
 						</tr>
 						<tr>
 							<td width="120" align="center">pw</td>
-							<td width="200"><input name="loginPw" type="password" size="50"></td>
+							<td width="200"><input name="loginPw" type="password" size="50" maxlength="16"></td>
 						</tr>
 					</table>
 				</td>
