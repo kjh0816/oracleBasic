@@ -12,6 +12,7 @@
 	$j(document).ready(function(){
 		
 		$j("#submit").on("click",function(){
+			
 			var $frm = $j('.boardModify :input');
 			var param = $frm.serialize();
 			

@@ -202,6 +202,7 @@
 			return false;	
 		}
 		
+		
 		$j.ajax({
 			
 			url : "/user/loginIdCheck.do",
@@ -315,6 +316,12 @@
 		
 		var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
 		var postNoRegex2 = /^\d{6}$/;
+		
+		if(postNo.length != 0 && !postNoRegex.test(postNo)){
+			alert('우편번호는 6자리를 입력해주세요.');
+			document.getElementById('postNo').focus();
+			return false;
+		}
 		
 		
 	

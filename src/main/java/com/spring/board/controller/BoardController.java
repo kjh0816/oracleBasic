@@ -289,67 +289,19 @@ public class BoardController {
 	public String boardWriteAction(
 			Locale locale
 			, HttpServletRequest req
-			, @RequestParam(value="boardType", required=true, defaultValue="") List<String> boardType
-			, @RequestParam(value="boardTitle", required=true, defaultValue="") List<String> boardTitle
-			, @RequestParam(value="boardComment", required=true, defaultValue="") List<String> boardComment
+			, List<BoardVo> boardList
 			) throws Exception{
 		
+		System.out.println(boardList);
+		System.out.println(boardList);
+		System.out.println(boardList);
+		System.out.println(boardList);
+		System.out.println(boardList);
+		System.out.println(boardList);
+		System.out.println(boardList);
+		System.out.println(boardList);
 		
-		int listSize = boardType.size();
-		
-		List<BoardVo> boardList = new ArrayList<BoardVo>();
-		
-		HashMap<String, String> result = new HashMap<String, String>();
-		CommonUtil commonUtil = new CommonUtil();
-		
-		HttpSession loginSession = req.getSession();
-		
-		UserVo userVo = (UserVo) loginSession.getAttribute("loginedMember");
-		
-		String userName = "SYSTEM";
-		
-
-		
-		if(userVo != null) {
-			userName = userVo.getName();
-		}
-		
-	
-		
-		
-		for(int i = 0; i < listSize; i++) {
-			
-			BoardVo boardVo = new BoardVo();
-			
-			boardVo.setBoardType(boardType.get(i));
-			boardVo.setBoardTitle(boardTitle.get(i));
-			boardVo.setBoardComment(boardComment.get(i));
-			boardVo.setCreator(userName);
-			
-			
-			
-			int resultCnt = boardService.boardInsert(boardVo);
-			
-			if(resultCnt == 0) {
-				
-				result.put("msg", "작성에 실패했습니다.");
-				
-				String failMsg = commonUtil.getJsonCallBackString(" ",result);
-				
-				return failMsg;
-				
-			}
-			
-		}
-		
-		result.put("msg", "작성 완료");
-		
-		String callbackMsg = commonUtil.getJsonCallBackString(" ",result);
-		
-		System.out.println("callbackMsg::"+callbackMsg);
-		
-		return callbackMsg;
-		
+		return "";
 	}
 	
 }
