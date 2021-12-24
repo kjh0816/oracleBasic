@@ -10,18 +10,21 @@
 <script type="text/javascript">
 	$j(document).ready(function() {
 		
-		$j('#loginId').on("change keyup paste", function(){ 
-			if (!(event.keyCode >=37 && event.keyCode<=40)) { 
-				var inputVal = $j(this).val(); 
+		$j('#loginId').on("input change keyup paste", function(){ 
+			if (!(event.keyCode >=37 && event.keyCode<=40)) {
+				
+				var inputVal = $j(this).val();
 				var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
+				
 				if(check.test(inputVal)){ 
-					$j(this).val(""); 
+					$j(this).val(inputVal.slice(0, inputVal.length - 1)); 
+					
 				} 
 			} 
 		});
 		
 		
-		$j('#loginPw , #loginPwConfirm').on("change keyup paste", function(){
+		$j('#loginPw , #loginPwConfirm').on("input change keyup paste", function(){
 			
 			
 
@@ -64,11 +67,11 @@
 			
 		});
 		
-		$j('#name').on("change keyup paste", function(){
+		$j('#name').on("input change keyup paste", function(){
 			var name = $j(this).val(); 
 			var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+$/; 
 			if(!check.test(name)){ 
-				$j(this).val(""); 
+				$j(this).val($j(this).val().slice(0, $j(this).val().length - 1)); 
 			}
 			
 			if(name.length == 6){
@@ -80,15 +83,15 @@
 		var cell = /^[0-9]+$/;
 		var cellphoneNoRegex = /^[0-9]{4}$/;
 		
-		$j('#cellphoneNo_2, #cellphoneNo_3').on("change keyup paste", function(){
+		$j('#cellphoneNo_2, #cellphoneNo_3').on("input change keyup paste", function(){
 			if(!cell.test($j('#cellphoneNo_2').val())){
 				
-				$j('#cellphoneNo_2').val("");
+				$j('#cellphoneNo_2').val($j('#cellphoneNo_2').val().slice(0, $j('#cellphoneNo_2').val().length - 1));
 				
 			}
 			if(!cell.test($j('#cellphoneNo_3').val())){
 				
-				$j('#cellphoneNo_3').val("");
+				$j('#cellphoneNo_3').val($j('#cellphoneNo_3').val().slice(0, $j('#cellphoneNo_3').val().length - 1));
 				
 			}
 		});
@@ -133,45 +136,33 @@
 		});
 		
 		
-	$j('#postNo').on("change keyup paste", function(){
+	$j('#postNo').on("input change keyup paste", function(){
 			
 			var postNo = $j('#postNo').val();
 			
-			var postNoRegex = /^[0-9]{3}[-]+[0-9]{3}$/;
-			var postNoRegex2 = /^[0-9]{6}$/;
+			var postNoRegex = /^[0-9]{6}$/;
+			var postNoRegex2 = /^[0-9]+$/;
+			var postNoRegex3 = /^[0-9]{3}[-]+[0-9]{3}$/;
 			
-			console.log($j('#postNo').val().lenth != 0);
-			if($j('#postNo').val().length == 0){
+			if(postNoRegex3.test($j('#postNo').val())){
+				console.log('실행됨 1')
+				return false;
+			}
+			
+			if(!postNoRegex2.test(postNo)){
+				console.log('실행됨 2')
 				
-				$j('#postNoResult').remove();
-				$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'></td>");
+				$j('#postNo').val( $j('#postNo').val().slice(0, $j('#postNo').val().length -1) );
+			}
+			
+			if(postNoRegex.test(postNo)){
+				console.log('실행됨 3')
+				
+				$j('#postNo').val($j('#postNo').val().substr(0, 3) + '-' + $j('#postNo').val().substr(3,7));
 				
 			}
 			
-			if($j('#postNo').val().length != 0 && (!postNoRegex.test(postNo) && !postNoRegex2.test(postNo))){
-					
-					var wording = '우편번호는 xxx-xxx 형식으로 입력해주세요.';
-					$j('#postNoResult').remove();
-					$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'>"+wording+"</td>");
-					
-					$j("#postNoResult").css("color", "red");
-					
-			}
 			
-			
-			if(postNoRegex2.test(postNo)){
-				
-				$j('#postNoResult').remove();
-				$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'></td>");
-				
-				$j('#postNo').val(postNo.substr(0, 3) + '-' + postNo.substr(3,7));
-				
-			}else if(postNoRegex.test(postNo)){
-				
-				$j('#postNoResult').remove();
-				$j('#postNoPart').append("<td id='postNoResult' width='120' align='right'></td>");
-				
-			}
 			
 			
 		});
@@ -441,13 +432,13 @@ tbody tr:nth-child(5)>td>select {
 						<tr>
 							<td width="80" align="center">address</td>
 							<td width="100" align="left"><input type="text"
-								name="address" id="address"></td>
+								name="address" id="address" maxlength="50"></td>
 							<td width="120" align="right"></td>
 						</tr>
 						<tr>
 							<td width="80" align="center">company</td>
 							<td width="100" align="left"><input type="text"
-								name="company" id="company"></td>
+								name="company" id="company" maxlength="20"></td>
 							<td width="120" align="right"></td>
 						</tr>
 
